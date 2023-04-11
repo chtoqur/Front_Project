@@ -1,0 +1,78 @@
+@charset 'utf-8';
+/* HTML과 CSS에 들어가야하는 폰트 정보 중 CSS 정보 작성 */
+
+html {
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    /* 수평 스크롤 없애기 */
+    overflow-x: hidden;
+    /* 글간격 5% 줄이기 */
+    /* em = 부모의 크기 */
+    /* rem = 루트 em 루트의 크기를 상대값으로 가져오는 것 */
+    letter-spacing: -0.05rem; 
+}
+
+a {
+    /* 언더바 제거 */
+    text-decoration: none;
+}
+
+.global-nav {
+    /* absolute로 영점을 바디의 영점으로 지정, 부모에게 뜯어냄 */
+    /* 뜯어내서 다른 레이어로 옮기기 때문에 아래에 있던 데이터는 위로 올라옴 */
+    position: absolute;
+    /* body의 100% */
+    width: 100%;
+    height: 44px;
+    left: 0;
+    top: 0;
+
+    border: 1px solid red;
+}
+
+.local-nav {
+    position: absolute;
+    width: 100%;
+    height: 52px;
+    left: 0;
+    top: 45px; /* 44px이 천장이기 때문에 더 크게 설정 */
+    border: 1px solid blue;
+}
+
+.global-nav-links {
+    display: flex;
+    justify-content: space-between;
+    /* 세로 중앙정렬 */
+    align-items: center;
+
+    /* 양 옆에 공백이 있어서 width에 제한 두기 */
+    max-width: 1000px;
+    /* 높이는 부모 태그의 높이만큼 만들어야함
+    global-nav의 높이와 같게 설정 */
+    height: 100%;
+
+    /* 글자 컨텐츠를 양쪽 여백 + 중앙정렬로 변경 */
+    margin: 0 auto;
+}
+
+.local-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+
+}
+
+.local-nav-product-link {
+    margin-right: auto;
+}
+
+.local-nav-link {
+    margin-left: 2em;
+    /* 글자 두개 정도의 크기 */
+}

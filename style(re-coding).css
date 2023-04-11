@@ -1,0 +1,74 @@
+
+html {
+    font-size: 14px;
+    /* font 설정 */
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    /* 가로축 바 제거 */
+    overflow-x: hidden;
+    letter-spacing: -0.05rem;
+}
+
+a {
+    /* 텍스트 아래 밑줄 제거 */
+    text-decoration: none;
+}
+
+.global-nav {
+    position: absolute;
+    width: 100%;
+    height: 44px;
+    left: 0;
+    top: 0;
+    border: 1px solid black
+}
+
+/* flex는 개별요소가 아닌 커버 태그에 부여하는 것이기
+때문에 a 태그가 아닌 div 태그에 스타일을 지정한다 */
+.global-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* 세로 중앙정렬 */
+    height: 100%;
+    /* 양쪽에 여백 만들고 글자 중앙정렬 */
+    margin: 0 auto;
+    /* 최대 길이를 설정해서 양옆에 공백 */
+    max-width: 1000px;
+}
+
+.local-nav {
+    position: absolute;
+    width: 100%;
+    height: 52px;
+    left: 0;
+    /* global 영역을 침범하면 안되므로 44보다 크게 설정한다 */
+    top: 45px;
+    border: 1px solid black;
+}
+
+.local-nav-links {
+    /* 커버에 flex 적용시켜주기 */
+    display: flex;
+    /* 세로 중앙정렬 */
+    align-items: center;
+    /* 텍스트 오른쪽 정렬 */
+    justify-content: right;
+    height: 100%;
+    /* 가로길이 설정해서 여백 확보 */
+    max-width: 1000px;
+    /* 최대한으로 여백 확보 > 오른쪽으로 붙게 됨 */
+    margin: 0 auto;
+}
+
+.local-nav-proudct-link {
+    margin-right: auto;
+}
+
+.local-nav-link {
+    /* 텍스트 사이 간격 */
+    margin-left: 2em;
+}
