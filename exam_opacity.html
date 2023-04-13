@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2300px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            position: fixed;
+            left: 0;
+            top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>온전히 빠져들게 하는 빛깔</h1>
+
+    <script>
+
+        let yOffset = 0;
+        const $h1 = document.querySelector("h1");
+
+        let scHeight = document.body.scrollHeight - window.innerHeight;
+
+        window.addEventListener("scroll", ()=>{
+            
+            let ratio = 0;
+            yOffset = window.scrollY;
+
+            let startValue = 1;
+            let endValue = 0;
+            let range = endValue - startValue;
+            
+            // ratio를 구하기
+            // 전체 스크롤길이(scHeight)를 기준으로 얼마나 이동했는지
+            ratio = yOffset / scHeight;
+            
+            let opacityValue = (range * ratio) + startValue
+            console.log(`opacityValue = ${opacityValue}`)
+            
+            $h1.style.opacity = opacityValue
+            
+        })
+    </script>
+</body>
+</html>

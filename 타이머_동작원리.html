@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2300px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            position: fixed;
+            left: 0;
+            top: 0;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>온전히 빠져들게 하는 빛깔</h1>
+
+    <script>
+        // const $h1 = document.querySelector("h1");
+
+        // // 타이며
+        // let count = 0;
+
+        // // setInverval의 파라메터 두 개
+        // // 1. 실행할 함수, 2. 타이머(1000분의1초-ex. 100 = 0.1초, 1000=1초)
+
+        // const timerId = setInterval(()=>{
+
+        //     // 변수를 하나씩 증가시키면서 타이머를 실행시키다가
+        //     count++;
+        //     console.log("count = " + count);
+
+        //     // 변수가 100이 되면
+        //     if (count === 100)
+        //     {
+        //         console.log("kill-timer");
+        //         // 내부적으로 
+        //         clearTimeout(timerId);
+        //     }
+        // }, 1000)
+        
+        // 5단 출력
+
+        let gugu = 1;
+        
+        const timerId = setInterval(()=>{
+
+            let str = `5 * ${gugu} = ${5 * gugu}`
+            console.log(str)
+            
+            if (gugu === 9)
+            {
+                console.log("5단 종료");
+                clearTimeout(timerId);
+            }
+            
+            gugu++;
+
+        }, 500)
+
+    </script>
+</body>
+</html>

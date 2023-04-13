@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2300px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            position: fixed;
+            left: 0;
+            top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>온전히 빠져들게 하는 빛깔</h1>
+    <button>TEST</button>
+
+    <script>
+
+        // text 위치는 올라가게 하면서 동시에 fade-out
+        let yOffset = 0;
+        const $h1 = document.querySelector("h1");
+        const $btn = document.querySelector("button")
+
+        let scHeight = document.body.scrollHeight - window.innerHeight;
+
+        let bReset = false;
+        $btn.addEventListener("click", ()=> {
+
+            if (bReset === false)
+            {
+                $h1.style.transform = "translateY(-80%)" // 위로 올라옴
+            }
+            else
+            {
+                $h1.style.transform = "translateY(0%)" // 위로 올라옴
+            }
+
+            bReset = !bReset;
+        });
+
+        window.addEventListener("scroll", ()=>{
+            
+            let ratio = 0;
+            yOffset = window.scrollY;
+
+            let startValue = 1;
+            let endValue = 0;
+            let range = endValue - startValue;
+            
+            // ratio를 구하기
+            // 전체 스크롤길이(scHeight)를 기준으로 얼마나 이동했는지
+            ratio = yOffset / scHeight;
+            console.log(ratio)
+            
+            let opacityValue = (range * ratio) + startValue
+            console.log(`opacityValue = ${opacityValue}`)
+
+            let startY = 0;
+            let endY = -80;
+            let rangeY = endY - startY;
+            let transYvalue = (rangeY * ratio) + startY
+            
+            $h1.style.opacity = opacityValue
+            $h1.style.transform = `translateY(${transYvalue}%)`
+            console.log("transYvalue = " + transYvalue)
+            
+        })
+    </script>
+</body>
+</html>

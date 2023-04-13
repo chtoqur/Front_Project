@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2300px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            position: fixed;
+            left: 0;
+            top: 20;
+        }
+    </style>
+</head>
+<body>
+    <h1>온전히 빠져들게 하는 빛깔</h1>
+
+    <script>
+
+        const $h1 = document.querySelector("h1");
+
+        let opacityValue = 0;
+        let value = 0;
+
+        const timerId = setInterval(()=>{
+            
+            $h1.style.transform = `translateY(${value}%)`
+            value++;
+            // 위로 올리고 싶을 때는 value--;
+            if (value > 100)
+            {
+                $h1.style.transform = `translateY(0%)`
+                clearTimeout(timerId);
+            }
+        }, 20)
+        // 보통 30내지 20으로 지정하는 것이 일반적임
+
+    </script>
+</body>
+</html>

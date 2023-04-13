@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2300px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            position: fixed;
+            left: 0;
+            top: 200px;
+            /* opacity: 0.5; */
+        }
+    </style>
+</head>
+<body>
+    <h1>온전히 빠져들게 하는 빛깔</h1>
+
+    <script>
+
+        // 스크롤이 0부터 1까지 변하는 동안
+        // 슥~내리는 동안..?;;
+        // 스크롤 내릴 때 
+
+        // translate y의 값을 감소시켜야 함. -값을 줘야 올라감
+
+        let yOffset = 0;
+        const $h1 = document.querySelector("h1");
+
+        
+        let exOffset = 1.0;
+        $h1.style.opacity = 1;
+        
+        window.addEventListener("scroll", ()=>{
+            
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            yOffset = window.scrollY;
+            
+            let rate = 0;
+            rate = yOffset / maxScroll
+
+            if (yOffset > exOffset)
+            {
+                // Opacity 감소
+                $h1.style.opacity = rate;
+                exOffset = yOffset
+            }
+            else (yOffset < exOffset)
+            {
+                // Opacity 증가
+                $h1.style.opacity = 1 - rate;
+                exOffset = yOffset
+            }
+
+            // console.log("innerHeight = " + window.innerHeight)
+            console.log("scrollY = " + yOffset);
+            console.log(document.body.scrollHeight - window.innerHeight);
+        })
+    </script>
+</body>
+</html>

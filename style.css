@@ -85,7 +85,7 @@ footer {
     height: 100%;
     max-width: 1000px;
     margin: 0 auto;
-
+    border-bottom: 1px solid gray;
 }
 
 .local-nav-product-link {
@@ -102,6 +102,7 @@ footer {
     /* 이 때 바로 위에 설정한 Real Apple Pro의 마진과
     margin-left의 마진겹침현상이 일어남. 둘 중 큰 마진인
     Real Apple Pro의 마진이 채택됨 */
+
 }
 
 .product-name {
@@ -118,13 +119,13 @@ footer {
 
 /* sticky 관련 속성 */
 .sticky-element {
+    display: none;
     position: fixed;
 }
 
 /* 디자인 관련요소 */
 .section0-message {
     /* 요소 뒤쪽 콘텐츠가 숨겨지는 정도, 투명도의 반대 */
-    opacity: 0;
 
     font-size: 4.5rem;
     font-weight: bold;
@@ -151,4 +152,34 @@ footer {
 
 .scroll-section {
     border: 1px solid red;
+}
+
+#show-section0 .sticky-element {
+    display: block;
+
+}
+
+/* local-nav 스크롤시 상단에 fixed 상태로 고정 */
+.local-nav-sticky > .local-nav {
+    position : fixed;
+    left: 0;
+    /* top을 지정해주지 않으면 내렸을 때 디폴트 값인 45px로 고정되어 있음
+    프로젝트에서는 윗쪽에 붙이고 싶기 때문에 top을 0으로 설정해준다 */
+    top: 0;
+
+    /* fixed 상태 됐을 때 하단바 화이트 라인 확장시키기 */
+    border-bottom: 1px solid gray;
+
+    /* 필터 코드 > 카피해서 사용 */
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+	-moz-backdrop-filter: saturate(180%) blur(15px);
+	-o-backdrop-filter: saturate(180%) blur(15px);
+	backdrop-filter: saturate(180%) blur(15px);
+
+}
+
+/* 캐스캐이딩
+후자가 가지고 있는 css 중에서 아래의 속성을 덮어써서 없애버리는 것 */
+.local-nav-sticky .local-nav-links {
+    border: none;
 }

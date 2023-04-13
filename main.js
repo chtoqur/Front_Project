@@ -90,7 +90,32 @@
             console.error("[ERROR] getCurrentSection()")
         }
         
+        // console.log("curSection = " + section)
         return section;
+    }
+
+    // 스크롤 될 때마다 섹션 별로 display 상태 변환
+    const setBodyID = function(section)
+    {
+        document.body.setAttribute("id", `show-section${section}`);
+        
+    }
+
+    // 스크롤 시 local-nav 상단에 붙이기
+    const setLocalnavMenu = function()
+    {
+        if (yOffset > 44)
+        {
+            // local-nav를 fixed 시키기
+
+            // 클래스는 여러개이기 때문에 classlist사용
+            document.body.classList.add('local-nav-sticky');
+        }
+        else
+        {
+            // local-nav를 원래상태로
+            document.body.classList.remove('local-nav-sticky');
+        }
     }
 
     // 이벤트 리스너
@@ -98,26 +123,41 @@
 
     // 스크롤이 일어날 때 이벤트 = 'scroll'
     window.addEventListener('scroll', ()=>{
-        yOffset = window.scrollY
-        
-        currentSection = getCurrentSection();
-        console.log(`yOffset = ${yOffset}, section = ${currentSection}`)
 
+        // 1. 스크롤 값을 다시 설정한다.
+        yOffset = window.scrollY
+
+        // 2. 현재 섹션값을 가지고 온다.
+        currentSection = getCurrentSection();
+        setBodyID(currentSection);
+        setLocalnavMenu();
     })
 
     // setLayout 함수가 호출되는 시기
     // 1. 처음 로딩될 때
     window.addEventListener('load', ()=>{
         // load = 필요한 리소스가 모두 로딩되었을 때 그 이후 발생!
+
+        // 1. 레이아웃을 다시 잡는다.
         setLayout();
+
+        // 2. 스크롤 값을 다시 설정한다.
+        yOffset = window.scrollY;
+
+        // 3. 현재 섹션값을 가지고 온다.
+        currentSection = getCurrentSection();
+        setBodyID(currentSection);
+        setLocalnavMenu();
+        
     })
 
     // 2. 페이지의 사이즈가 변경될 때마다 (유동적으로)
     window.addEventListener('resize', ()=>{
         // resize = 페이지가 리사이즈 될 때마다 발생!
+
+        // 1. 레이아웃을 다시 잡는다.
         setLayout();
+        setLocalnavMenu();
+
     })
-
-    
-
 })();
