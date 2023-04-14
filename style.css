@@ -135,6 +135,8 @@ footer {
     left: 0;
     top: 5em;
 
+    opacity: 0;
+
     text-align: center;
 }
 

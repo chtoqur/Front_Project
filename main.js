@@ -7,6 +7,10 @@
 
     // 현재 섹션의 값
     let currentSection = 0;
+
+    // 섹션이 넘어가면 0~부터 다시 시작하는 값
+    // 섹션 내부값
+    let sectionYOffset = 0;
     
     // section-0과 1의 정보를 넣어서 배열로 생성
     const sectionSet = [
@@ -18,7 +22,17 @@
             // 매번 쿼리셀렉터 호출이 번거롭기 때문에 objs 생성
             // DOM 정보를 미리 다 가져오기
             objs : {
-                container : document.querySelector("#section-0")
+                container : document.querySelector("#section-0"),
+                // section0-message와 a 두가지 클래스가 동시에 있어야 하는 경우
+                messageA : document.querySelector(".section0-message.a"),
+                messageB : document.querySelector(".section0-message.b"),
+                messageC : document.querySelector(".section0-message.c"),
+                messageD : document.querySelector(".section0-message.d")
+            },
+            // value 값 모아두기
+            vals : {
+                messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
+                messageA_fade_out : [1, 0, {start: 0.13, end: 0.23}],
             }
         },
         // section-1의 정보
@@ -30,6 +44,10 @@
             }
         }
     ];
+
+    // 객체 vals의 fade-in, fade-out 값 넣어주면 css값 출력해주는 함수 생성
+
+    
 
     const setLayout = function()
     {   
@@ -71,7 +89,6 @@
             // 섹션이 2개가 아니라 3개 이상이 되면 섹션도 늘어남
             sectionSet[0].height,
             sectionSet[0].height + sectionSet[1].height
-
         ];
 
         let section = 0;
@@ -118,7 +135,114 @@
         }
     }
 
-    // 이벤트 리스너
+    const getPrevSectionHeight = function()
+    {
+        let prevHeight = 0;
+
+        for (let i = 0; i < currentSection; i++)
+        {
+            // 이전 섹션의 높이를 각각 더해서 총합을 리턴해줌
+            prevHeight = prevHeight + sectionSet[i].height
+        }
+
+        return prevHeight
+    }
+
+    const calcValue = function(values)
+    {
+        // 최종 리턴값
+        let result = 0;
+
+        // [0, 1, {start: 0.03, end: 0.12}]
+        
+        let partStart = 0;
+        let partEnd = 0;
+        let partHeight = 0;
+
+        // 현재 섹션의 높이
+        const curHeight = sectionSet[currentSection].height;
+        
+        // fade-in 시작점
+        partStart = values[2].start * curHeight;
+        // fade-in 끝나는 지점
+        partEnd = values[2].end * curHeight;
+        // fade-in 구간 길이
+        partHeight = partEnd - partStart;
+
+        // fade-in 구간 진입 전 고정값 지정
+        if (sectionYOffset < partStart)
+        {
+            // fade-in 구간 진입 전에는
+            // fade-in ready 값인 0.03의 값을 리턴
+            result = values[0];
+        }
+        // fade-in 구간 빠져나온 후 ~ fade-out 구간 전 고정값 지정
+        else if (sectionYOffset > partEnd)
+        {
+            // fade-in 구간 지나간 후에는
+            // fade-out 마지막 값인 0.12를 리턴
+            result = values[1];
+        }
+        // fade-in 구역 내부에서 opacity에 리턴될 값 계산
+        else
+        {
+            ratio = (sectionYOffset - partStart) / partHeight
+            result = (values[1] - values[0]) * ratio + values[0];
+        }
+
+        return result;
+
+    }
+
+    const playAnimation = function()
+    {
+        let opacity = 0;
+
+        // 0부터 1사이의 값
+        // if문의 조건 변수
+        let scrollRate = sectionYOffset / sectionSet[currentSection].height
+
+        let values = sectionSet[currentSection].vals;
+        // messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
+        let objects = sectionSet[currentSection].objs;
+        // messageA : document.querySelector(".section0-message.a"),
+        
+        switch(currentSection)
+        {   
+            case 0:
+
+                // 'a'구간
+
+                // 1. fade-in 처리
+                if (scrollRate < 0.13)
+                {
+                    // fade-in 처리
+                    // [0, 1, {start: 0.03, end: 0.12}]
+                    opacity = calcValue(values.messageA_fade_in);
+                    objects.messageA.style.opacity = opacity;
+                }
+                else if ((scrollRate >= 0.13) && (scrollRate < 0.25))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageA_fade_out);
+                    objects.messageA.style.opacity = opacity;
+
+                }
+            break;
+
+            case 1:
+                console.log("1번 섹션 애니메이션 실행 중")
+            break;
+
+            default:
+                console.error("playAnimation()");
+            break;
+        }
+    }
+
+    ////////////////////////////////// 이벤트 리스너 //////////////////////////////////
     // DOM에서 받는게 아니기 때문에 window로 접근
 
     // 스크롤이 일어날 때 이벤트 = 'scroll'
@@ -129,8 +253,17 @@
 
         // 2. 현재 섹션값을 가지고 온다.
         currentSection = getCurrentSection();
+
+        // sectionYOffset을 구한다.
+        // yOffset값에서 이전 섹션의 높이를 뺀다(getPrevSectionHeight 함수 생성)
+        sectionYOffset = yOffset - getPrevSectionHeight();
+
+        // CSS 변경
         setBodyID(currentSection);
         setLocalnavMenu();
+
+        playAnimation();
+
     })
 
     // setLayout 함수가 호출되는 시기
@@ -157,7 +290,6 @@
 
         // 1. 레이아웃을 다시 잡는다.
         setLayout();
-        setLocalnavMenu();
 
     })
 })();

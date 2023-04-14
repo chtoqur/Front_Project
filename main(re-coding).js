@@ -44,6 +44,37 @@
         }
     }
 
+    // 현재 어느 섹션에 위치해있는지 함수 리턴값 받기
+    const getCurrentSection = function()
+    {
+        let segment = [
+            sectionSet[0].height,
+            sectionSet[0].height + sectionSet[1].height
+        ];
+
+        let section = 0;
+
+        if (yOffset <= segment[0])
+        {
+            section = 0;
+        }
+        else if ((yOffset > segment[0]) && (yOffset <= segment[1]))
+        {
+            section = 1;
+        }
+        else
+        {
+            // 도달하지 않는 공간
+            console.error("[ERROR] getCurrentSection()")
+        }
+        return section;
+    }
+
+    const setBodyID = function(section)
+    {
+        document.body.setAttribute("id", `show-section${section}`);
+    }
+
     // 레이아웃 함수가 호출되는 두 가지 경우
     
     // 1. 처음 로딩화면
@@ -57,7 +88,13 @@
     })
 
     // 스크롤 될 때 값을 알아야 함
-    
+    window.addEventListener('scroll', ()=>{
 
+        yOffset = window.scrollY;
+        currentSection = getCurrentSection();
+        setBodyID(currentSection);
+    })
+    
+    // bodyid부여하는 css, js에서 멈췄음
 
 })();
