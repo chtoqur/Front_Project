@@ -9,17 +9,12 @@
 <body>
     <!-- loop = 끝나면 처음부터 다시 재생 -->
     <!-- controls = 재생바 생성 -->
-
-
-    <video src="./video/apple.mp4"></video>
-    
-    <video src="./video/apple.mp4" autoplay loop muted controls></video>
-
-
-
+    <!-- <video src="./video/apple.mp4"></video>
+    <video src="./video/apple.mp4" autoplay loop muted controls></video> -->
 
     <button>STOP</button>
     <canvas id="canvas" width="1920" height="1080"></canvas>
+    
 
     <script>
         // 1. 캔버스 및 컨텍스트를 가지고 온다.
@@ -27,6 +22,8 @@
         const ctx = canvas.getContext('2d');
 
         // 2. 이미지를 불러온다.
+
+        
         const imgCount = 570;
         let imgElement;
         let imgArray = [];
@@ -47,6 +44,8 @@
 
         // load 이벤트는 로딩해야 할 리소스가 모두 로딩되면 발생하는 이벤트
         // 노드에는 이벤트 리스너를 붙일 수 있음
+
+        
         imgElement.addEventListener('load', ()=>{
             ctx.drawImage(imgArray[0], 0, 0);
             timerId()
