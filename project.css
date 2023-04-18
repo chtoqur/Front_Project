@@ -1,0 +1,88 @@
+@charset 'utf-8';
+
+html {
+    font-size: 14px;
+    font-family: 'Noto Serif KR', serif;
+    color: white;
+}
+
+body {
+    /* 수평 스크롤 삭제 */
+    overflow-x: hidden;
+
+    background-color: black;
+}
+
+video {
+    
+    /* 중앙 정렬 */
+    display: block;
+    margin: 0 auto;
+    margin-top: 7em;
+    /* 비디오 fade-in 효과 */
+    animation: fadein 4s;
+    -webkit-animation: fadein 4s;
+}
+
+a {
+    text-decoration: none;
+    color:white
+}
+
+/* 비디오 fade-in 효과 */
+@-webkit-keyframes fadein {
+    
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* /////////////// 클래스 /////////////// */
+
+
+.global-nav {
+    position: absolute;
+    width: 100%;
+    height: 65px;
+    left: 0;
+    top: 0;
+}
+
+.global-nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    max-width: 1000%;
+    height: 100%;
+    
+    margin:0 auto;
+    
+    font-size: 1.5rem;
+}
+
+.global-nav-menu-link {
+    margin: 0 auto;
+
+}
+
+.section0-title {
+    font-size: 4rem;
+    font-family: 'Song Myung', serif;
+    position: absolute;
+}
+
+.section0-title > a {
+    
+    /* display: flex;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    height: 100%; */
+
+    margin-top: 14em;
+    /* animation: slideup 1.2s ease-out .6s both; */
+}

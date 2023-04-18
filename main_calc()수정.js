@@ -27,10 +27,18 @@
                 messageA : document.querySelector(".section0-message.a"),
                 messageB : document.querySelector(".section0-message.b"),
                 messageC : document.querySelector(".section0-message.c"),
-                messageD : document.querySelector(".section0-message.d")
+                messageD : document.querySelector(".section0-message.d"),
+
+                canvas : document.querySelector("#main-canvas"),
+                ctx : document.querySelector("#main-canvas").getContext("2d")
             },
             // value 값 모아두기
             vals : {
+
+                imageCount : 570,
+                canvasImages : [],
+                imageIndex : [0, 569],    // {start: 0, end: 1} > 생략
+
                 messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
                 messageA_fade_out : [1, 0, {start: 0.13, end: 0.23}],
 
@@ -50,7 +58,10 @@
                 messageD_fade_in : [0, 1, {start: 0.78, end: 0.87}],
                 messageD_fade_out : [1, 0, {start: 0.88, end: 0.92}],
                 messageD_transY_in : [0, -30, {start: 0.78, end: 0.87}],
-                messageD_transY_out : [-30, -60, {start: 0.88, end: 0.92}]
+                messageD_transY_out : [-30, -60, {start: 0.88, end: 0.92}],
+                canvas_opacity : [1, 0, {start: 0.85, end: 0.92}]
+
+
             }
         },
         // section-1의 정보
@@ -66,15 +77,13 @@
     // 객체 vals의 fade-in, fade-out 값 넣어주면 css값 출력해주는 함수 생성
 
     
-
+    // layout 관련된 요소들을 초기화
     const setLayout = function()
     {   
         // 이미지를 보여주기 위해서 최소 높이를 설정해주기
         // 최소 높이보다 작은경우는 강제로 높이를 설정한다
 
         let height = 0;
-
-        console.log("[CALL] setlayout()")
 
         if (window.innerHeight < 500)
         {
@@ -96,6 +105,7 @@
     
     }
 
+    // 스크롤링할 때 현재 섹션이 어디인지 가져오는 함수
     const getCurrentSection = function()
     {
         // 섹션의 높이 정보, 스크롤 값을 알고 있어야 함
@@ -136,6 +146,7 @@
     }
 
     // 스크롤 시 local-nav 상단에 붙이기
+    // 파라메터가 없는 함수 = 고정된 값으로 바꾸는 것
     const setLocalnavMenu = function()
     {
         if (yOffset > 44)
@@ -163,6 +174,27 @@
         }
 
         return prevHeight
+    }
+
+    const setCanvas = function()
+    {
+        let imgElement;
+        const imageCount = sectionSet[0].vals.imageCount;
+        const canvasImages = sectionSet[0].vals.canvasImages;
+        const ctx = sectionSet[0].objs.ctx;
+
+        for (let i = 0; i < imageCount; i++)
+        {
+            imgElement = new Image();
+            imgElement.src = `./image/apple_${i}.png`
+
+            canvasImages.push(imgElement);
+        }
+        
+        imgElement.addEventListener('load', ()=>{
+            ctx.drawImage(canvasImages[0], 0, 0);
+        })
+
     }
 
     const calcValue = function(values)
@@ -245,18 +277,28 @@
         // messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
         let objects = sectionSet[currentSection].objs;
         // messageA : document.querySelector(".section0-message.a"),
+
+        let temp = 0;
+        let imgIndex = 0;
         
         switch(currentSection)
         {   
             case 0:
 
+                // 이미지 인덱스를 정수로 바꾼다.
+                temp = calcValue(values.imageIndex);
+                imgIndex = Math.floor(temp);
+
+                // 이미지 인덱스에 해당하는 이미지를 ctx에 출력한다.
+                objects.ctx.drawImage(values.canvasImages[imgIndex], 0, 0);
+                
                 // case문으로 진입할 때 초기화 시켜줌
                 // 스크롤 할 때 초기화가 진행되고 진행되므로 이런 현상이 발생하지 않음
                 objects.messageA.style.opacity = 0;
                 objects.messageB.style.opacity = 0;
                 objects.messageC.style.opacity = 0;
                 objects.messageD.style.opacity = 0;
-
+               
                 // 'a'구간
                 // 1. fade-in 처리
                 if (scrollRate < 0.13)
@@ -337,6 +379,12 @@
                     objects.messageD.style.transform = `translateY(${translateY}%)`
                 }
 
+                if((scrollRate >= 0.85) && (scrollRate < 0.92))
+                {
+                    canvasOpacity = calcValue(values.canvas_opacity);
+                    objects.canvas.style.opacity = canvasOpacity;
+                }
+
                 break;
 
             case 1:
@@ -359,6 +407,8 @@
         yOffset = window.scrollY
 
         // 2. 현재 섹션값을 가지고 온다.
+        // currentSection을 단순히 getCurrentSection 함수 내부에서 구할 수도 있지만
+        // 굳이 section을 리턴값으로 받아서 currentSection에 리턴한 이유는 리더빌리티 때문임
         currentSection = getCurrentSection();
 
         // sectionYOffset을 구한다.
@@ -370,6 +420,7 @@
         setLocalnavMenu();
 
         playAnimation();
+        
 
     })
 
@@ -386,6 +437,11 @@
 
         // 3. 현재 섹션값을 가지고 온다.
         currentSection = getCurrentSection();
+
+        // 4. 캔버스에 이미지를 로딩하고 0번 이미지를 출력하는 함수.
+        setCanvas();
+
+
         setBodyID(currentSection);
         setLocalnavMenu();
         
