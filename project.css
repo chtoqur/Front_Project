@@ -2,15 +2,14 @@
 
 html {
     font-size: 14px;
-    font-family: 'Noto Serif KR', serif;
-    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: black;
 }
 
 body {
     /* 수평 스크롤 삭제 */
     overflow-x: hidden;
-
-    background-color: black;
+    background-color: white;
 }
 
 video {
@@ -18,7 +17,7 @@ video {
     /* 중앙 정렬 */
     display: block;
     margin: 0 auto;
-    margin-top: 7em;
+    margin-top: 5em;
     /* 비디오 fade-in 효과 */
     animation: fadein 4s;
     -webkit-animation: fadein 4s;
@@ -26,7 +25,7 @@ video {
 
 a {
     text-decoration: none;
-    color:white
+    color:gray
 }
 
 /* 비디오 fade-in 효과 */
@@ -46,7 +45,7 @@ a {
 .global-nav {
     position: absolute;
     width: 100%;
-    height: 65px;
+    height: 44px;
     left: 0;
     top: 0;
 }
@@ -57,11 +56,11 @@ a {
     align-items: center;
     
     max-width: 1000%;
-    height: 100%;
+    height: 140%;
     
     margin:0 auto;
     
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .global-nav-menu-link {
@@ -69,20 +68,51 @@ a {
 
 }
 
-.section0-title {
+.main-video {
+    position: relative;
+    /* width: 100%;
+    height: 500px; */
+}
+
+.section0-message {
+
     font-size: 4rem;
-    font-family: 'Song Myung', serif;
     position: absolute;
 }
 
-.section0-title > a {
-    
-    /* display: flex;
-    top: 55px;
-    left: 0;
-    width: 100%;
-    height: 100%; */
+.section0-message.a {
 
-    margin-top: 14em;
-    /* animation: slideup 1.2s ease-out .6s both; */
+    top: 19%;
+    width: 100%;
 }
+
+.section0-message.a {
+
+    margin-top: 3em;
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 600;
+    color: white;
+
+    animation: fadein 4s;
+    -webkit-animation: fadein 4s;
+}
+
+.section0-message.b {
+    top: 29%;
+    width: 100%;
+}
+
+.section0-message.b {
+
+    margin-top: 9em;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    color: white;
+
+    animation: fadein 4s;
+    -webkit-animation: fadein 4s;
+}
+
