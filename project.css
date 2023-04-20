@@ -13,23 +13,15 @@ body {
 }
 
 video {
-    
-    /* 중앙 정렬 */
     display: block;
     margin: 0 auto;
-    margin-top: 5em;
-    /* 비디오 fade-in 효과 */
-    animation: fadein 4s;
-    -webkit-animation: fadein 4s;
+    margin-top: 7.2em;
+
+    animation: video-fadein 4s;
+
 }
 
-a {
-    text-decoration: none;
-    color:gray
-}
-
-/* 비디오 fade-in 효과 */
-@-webkit-keyframes fadein {
+@keyframes video-fadein {
     
     from {
         opacity: 0;
@@ -39,8 +31,16 @@ a {
     }
 }
 
+a {
+    text-decoration: none;
+    color:gray
+}
+
 /* /////////////// 클래스 /////////////// */
 
+/* .main-video {
+    z-index: -5;
+} */
 
 .global-nav {
     position: absolute;
@@ -55,64 +55,118 @@ a {
     justify-content: space-between;
     align-items: center;
     
-    max-width: 1000%;
     height: 140%;
+    max-width: 1000px;
     
-    margin:0 auto;
+    margin: 0 auto;
     
     font-size: 1.2rem;
+    z-index: -2;
 }
 
-.global-nav-menu-link {
+.local-nav {
+    position: absolute;
+    width: 100%;
+    height: 52px;
+    left: 0;
+    top: 45px; /* 44px이 천장이기 때문에 더 크게 설정 */
+    z-index: 1;
+}
+
+.local-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 100%;
+    max-width: 1000px;
     margin: 0 auto;
+    border-bottom: 1px solid white;
 
 }
 
-.main-video {
+.local-nav-product-link {
+    /* Real Apple Pro의 오른쪽 마진을 최대로 설정해서
+    글자가 왼쪽으로 움직이도록 함 */
+    margin-right: auto;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.local-nav-link {
+    margin-left : 2em;
+}
+
+#section-0-title {
     position: relative;
-    /* width: 100%;
-    height: 500px; */
+    z-index: -1;
 }
 
 .section0-message {
 
-    font-size: 4rem;
     position: absolute;
-}
-
-.section0-message.a {
-
-    top: 19%;
     width: 100%;
+    height: 0;
+    left: 0;
+    top: 0;
+    letter-spacing: 0.8rem;
+
+    animation: text-fadein 5s;
+
 }
 
-.section0-message.a {
+@keyframes text-fadein {
+    
+    from {
+        opacity: 0;
+        transform: translateY(7em);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
 
-    margin-top: 3em;
-    text-align: center;
+.title-name-a {
+
+
     font-size: 4rem;
     font-weight: 600;
-    color: white;
-
-    animation: fadein 4s;
-    -webkit-animation: fadein 4s;
-}
-
-.section0-message.b {
-    top: 29%;
-    width: 100%;
-}
-
-.section0-message.b {
-
-    margin-top: 9em;
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
+    color: #f0fdff;
+    text-shadow: 0 8px 9px #bfcfcf, 0px -2px 1px #fff;
 
-    color: white;
+    margin-top: 7em;
 
-    animation: fadein 4s;
-    -webkit-animation: fadein 4s;
 }
 
+.title-name-b {
+
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    color: #f0fdff;
+    text-shadow: 0 8px 9px #bfcfcf, 0px -2px 1px #fff;
+
+    margin-top: 8.5em;
+    
+}
+
+.local-nav-sticky > .local-nav {
+    position : fixed;
+    left: 0;
+    top: 0;
+
+    border-bottom: 1px solid gray;
+
+    /* 필터 코드*/
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+	-moz-backdrop-filter: saturate(180%) blur(15px);
+	-o-backdrop-filter: saturate(180%) blur(15px);
+	backdrop-filter: saturate(180%) blur(15px);
+
+}
+
+.local-nav-sticky .local-nav-links {
+    border: none;
+
+}

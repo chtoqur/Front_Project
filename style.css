@@ -59,7 +59,7 @@ footer {
     width: 100%;
     height: 52px;
     left: 0;
-    top: 45px44; /* 44px이 천장이기 때문에 더 크게 설정 */
+    top: 45px; /* 44px이 천장이기 때문에 더 크게 설정 */
 }
 
 .global-nav-links {
