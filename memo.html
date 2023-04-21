@@ -10,39 +10,15 @@
 
     <script>
         
-        (function(){
-            
-            // 객체를 Heap에 할당하는 방법
-
-            // // 1. 리터럴
-            // let product1  = {
-            //     name : 'mouse',
-            //     color : 'red',
-            //     getColor : function(){
-            //         return product1.color;
-            //     }
-            // };
-
-            // console.log(product1.getColor());
-
-            let arr1 = [1, 2, 3, 4, 5];
-
-            const Product = function(name, color)
-            {
-                this.name = name;
-                this.color = color;
-                console.log(this)
+        const sayHello = function() {
+            return function() {
+                console.log("Hello!")
             }
+        }
 
-            // 그냥 호출하면 의미 없음
-            Product();
-            
-            // 빈 객체를 만들고 빈 객체에 Product를 넣어서 호출되기 때문에
-            // this가 빈 객체가 됨
-            const pp = new Product("keyboard", "black");
-            console.log(pp);
+        const myF
 
-        })();
+
 
     </script>
 </body>

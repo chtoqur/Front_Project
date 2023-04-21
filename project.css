@@ -18,7 +18,14 @@ video {
     margin-top: 7.2em;
 
     animation: video-fadein 4s;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 
+}
+
+section {
+    background-color: black;
 }
 
 @keyframes video-fadein {
@@ -37,10 +44,6 @@ a {
 }
 
 /* /////////////// 클래스 /////////////// */
-
-/* .main-video {
-    z-index: -5;
-} */
 
 .global-nav {
     position: absolute;
@@ -96,10 +99,7 @@ a {
     margin-left : 2em;
 }
 
-#section-0-title {
-    position: relative;
-    z-index: -1;
-}
+
 
 .section0-message {
 
@@ -128,7 +128,7 @@ a {
 
 .title-name-a {
 
-
+    
     font-size: 4rem;
     font-weight: 600;
     text-align: center;
@@ -170,3 +170,33 @@ a {
     border: none;
 
 }
+
+.section1-canvas {
+    /* position: fixed;
+    left: 0;
+    top: 0; */
+}
+
+/* sticky 관련 속성 */
+.sticky-element {
+    /* display: none; */
+    position: fixed;
+}
+
+#show-section1 .sticky-element {
+    display: block;
+}
+
+.scroll-section {
+    border: 1px solid red;
+}
+
+/* id */
+
+#section-0-title {
+    position: relative;
+    z-index: -1;
+}
+
+
+

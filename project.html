@@ -16,15 +16,15 @@
 <body id="show-section0">
     
     <div class="main-video">
-        <video src="./video/small_wave.mp4" autoplay loop muted></video>
+        <video src="./video/main.mov" autoplay loop muted></video>
     </div>
     
     <nav class="global-nav">
         <div class="global-nav-links">
             <a href="#" class="global-nav-link">Home</a>
-            <a href="#" class="global-nav-link">About</a>
-            <a href="#" class="global-nav-link">Events</a>
-            <a href="#" class="global-nav-link">Contact</a>
+            <a href="#" class="global-nav-link">News</a>
+            <a href="#" class="global-nav-link">Explore</a>
+            <a href="#" class="global-nav-link">Solutions</a>
         </div>
     </nav>
 
@@ -33,13 +33,13 @@
             <!-- class가 레벨이 제일 낮기 때문에 css는 class 기반으로 하고
             중요한 내용은 id로 집어넣음 -->
             <a href="#" class="local-nav-product-link">What Can We Do</a>
-            <a href="#" class="local-nav-link">Overview</a>
-            <a href="#" class="local-nav-link">Compare</a>
-            <a href="#" class="local-nav-link">Buy</a>
+            <a href="#" class="local-nav-link"></a>
+            <a href="#" class="local-nav-link">Act Now</a>
+            <a href="#" class="local-nav-link">Learn More</a>
         </div>
     </nav>
 
-    <section id="section-0">
+    <section id="section-0" class="scroll-section">
 
         <div class="section0-title">
 
@@ -53,27 +53,28 @@
 
         </div>
 
+
+
+    </section>
+
+    <section id="section-1" class="scroll-section">
+
         <div>
-            <p>Everyday Sustainability</p>
+            <!-- <p>Everyday Sustainability</p> -->
         </div>
 
         <!-- 스크롤 내리면 아래에서 위로 fade-in -->
         <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste ratione, neque eveniet libero quis amet fuga voluptas? Consectetur perferendis laborum aliquid porro maxime cumque natus dolorem dolores! Illo, repellat libero.</p>
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste ratione, neque eveniet libero quis amet fuga voluptas? Consectetur perferendis laborum aliquid porro maxime cumque natus dolorem dolores! Illo, repellat libero.</p> -->
+        </div>
+
+        <div class="section1-canvas">
+            <canvas id="section1-canvas" width="1920" height="1080"></canvas>
         </div>
 
     </section>
 
-    <section id="section-1">
-
-        <div class="sticky-element section1-canvas a">
-            <canvas id="main-canvas-a" width="1920" height="1080"></canvas>
-        </div>
-
-        <div class="sticky-element section1-canvas b">
-            <canvas id="main-canvas-b" width="1920" height="1080"></canvas>
-        </div>
-
+    <section id="section-2" class="scroll-section">
 
         <div class="section1-message a">
             <p>Ocean</p>
@@ -99,16 +100,9 @@
             <p>Vel voluptates nihil, cupiditate veritatis explicabo in adipisci, id magni quasi, veniam optio quae! Suscipit nihil nobis mollitia fuga exercitationem cum unde?</p>
         </div>
 
-
-
-
     </section>
 
-
-
-
-
-    <section id="section-2">
+    <section id="section-3" class="scroll-section">
 
     </section>
 
