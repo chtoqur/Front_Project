@@ -14,7 +14,7 @@
         // section-0 데이터
         {
             height : 0,
-            hMultiple : 3,
+            hMultiple : 1.3,
             objs : {
                 container : document.querySelector("#section-0")
             }
@@ -23,18 +23,19 @@
         // section-1 데이터
         {
             height : 0,
-            hMultiple : 3,
+            hMultiple : 5,
             objs : {
                 container : document.querySelector("#section-1"),
                 canvas : document.querySelector("#section1-canvas"),
                 ctx : document.querySelector("#section1-canvas").getContext("2d")
             },
             vals : {
-                imageCount : 187,
+                imageCount : 85,
                 canvasImages : [],
-                imageIndex : [0, 186],
+                imageIndex : [0, 84],
                 canvas_fadein_opacity : [0, 1, {start: 0.03, end: 0.21}],
                 canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.92}],
+                canvas_default_opacity : [1, 1]
             }
         },
         
@@ -43,8 +44,8 @@
             height : 0,
             hMultiple : 3,
             objs : {
-                container : document.querySelector("#section-2")
-            }
+                container :document.querySelector("#section-2")
+            } 
         },
 
         // section-3 데이터
@@ -168,7 +169,7 @@
         for (let i = 0; i < imageCount; i++)
         {
             imgElement = new Image();
-            imgElement.src = `./image/section-1/earth${i}.png`
+            imgElement.src = `./image/earth2/earth${i}.png`
 
             canvasImages.push(imgElement);
         }
@@ -238,6 +239,116 @@
 
     }
 
+    // load시 스크롤 위치 기반으로 subtitle 출력
+    const loadSubAnimation = function()
+    {
+        let opacity = 0;
+        let translateY = 0;
+        let scrollRate = sectionYOffset / sectionSet[currentSection].height
+
+        switch(currentSection)
+        {
+            case 0:
+
+            if ((scrollRate < 0.6))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.style.opacity = 0;
+            }
+            else if ((scrollRate >= 0.6) && (scrollRate < 1))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.setAttribute("id", `section0-subtitle`);
+            }
+            else
+            {
+                console.error("[ERROR] playSubAnimation()")
+            }
+
+            break;
+
+            case 1:
+
+            if ((scrollRate < 0.3))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.setAttribute("id", `section0-subtitle`);
+            }
+            else ((scrollRate >= 0.3) && (scrollRate < 1))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.style.opacity = 0;
+            }
+            
+            case 2: case 3:
+
+            $subtitle = document.querySelector(".section0-subtitle")
+            $subtitle.style.opacity = 0;
+
+            break;
+        }
+    }
+
+    const scrollSubAnimation = function()
+    {
+        let scrollRate = sectionYOffset / sectionSet[currentSection].height
+        
+        let f = true;
+
+        switch(currentSection)
+        {
+            case 0:
+
+            $subtitle.style.opacity = 0;
+
+            if ((scrollRate >= 0.6) && (scrollRate < 1))
+            {
+                if(f == true)
+                {
+                    $subtitle = document.querySelector(".section0-subtitle")
+                    $subtitle.setAttribute("id", `section0-subtitle`);
+                }
+                
+                else(f == false)
+                {
+                    $subtitle = document.querySelector(".section0-subtitle")
+                    $subtitle.style.opacity = 1
+                }
+                
+                f = false;
+            }
+
+            break;
+
+            case 1:
+            
+            $subtitle.style.opacity = 0;
+
+            if ((scrollRate < 0.3))
+            {
+                if(f == true)
+                {
+                    $subtitle = document.querySelector(".section0-subtitle")
+                    $subtitle.setAttribute("id", `section0-subtitle`);
+                }
+
+                else(f == false)
+                {
+                    $subtitle = document.querySelector(".section0-subtitle")
+                    $subtitle.style.opacity = 1
+                }
+
+                f = false;
+            }
+
+            break;
+
+            case 2: case 3:
+            break;
+        }
+
+    }
+
     // 애니메이션 함수
     const playAnimation = function()
     {
@@ -252,6 +363,7 @@
         switch(currentSection)
         {
             case 0:
+                
             break;
             
             case 1:
@@ -272,7 +384,7 @@
 
                 else if ((scrollRate >= 0.53) && (scrollRate < 0.72))
                 {
-                    canvasOpacity = calcValue(values.canvas_fadein_opacity);
+                    canvasOpacity = calcValue(values.canvas_default_opacity);
                     objects.canvas.style.opacity = canvasOpacity;
                 }
 
@@ -294,9 +406,6 @@
             break;
 
         }
-        
-
-        
     }
 
     ////////////// 이벤트 리스너 //////////////
@@ -305,21 +414,28 @@
     window.addEventListener('load', ()=>{
         setLayout();
         yOffset = window.scrollY;
+        sectionYOffset = yOffset - getPrevSectionHeight();
+
         currentSection = getCurrentSection();
-        setCanvas()
+        setCanvas() 
         setBodyID(currentSection);
         setLocalnavMenu();
+        loadSubAnimation();
     })
     
 
     // 스크롤 될 때마다
     window.addEventListener('scroll', ()=>{
         yOffset = window.scrollY
+
         currentSection = getCurrentSection();
         sectionYOffset = yOffset - getPrevSectionHeight();
+        console.log(`sectionYOffset = ${sectionYOffset}`)
+        console.log(`currentSection = ${currentSection}`)
         setBodyID(currentSection);
         setLocalnavMenu();
         playAnimation();
+        scrollSubAnimation();
     })
 
     // 페이지 사이즈 변경될 때마다
@@ -327,6 +443,10 @@
         setLayout();
 
     })
+
+    // window.addEventListener('scroll', ()=>{
+    //     playSubAnimation();
+    // }, { once : true });
     
     
     
