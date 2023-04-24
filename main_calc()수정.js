@@ -186,7 +186,7 @@
         for (let i = 0; i < imageCount; i++)
         {
             imgElement = new Image();
-            imgElement.src = `./image/apple_${i}.png`
+            imgElement.src = `./image/apple/apple_${i}.png`
 
             canvasImages.push(imgElement);
         }
