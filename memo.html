@@ -10,13 +10,36 @@
 
     <script>
         
-        const sayHello = function() {
-            return function() {
-                console.log("Hello!")
-            }
+        const ar1 = [1, 2, 3];
+
+        // 깊은복사
+        const ar2 = [];
+
+        for (let i = 0; i < ar1.length; i++)
+        {
+            ar2.push(ar1[i])
         }
 
-        const myF
+        const ar3 = [...ar1];
+
+        const logiMouse = {
+            name : 'logi-mouse',
+            color : 'black'
+        }
+
+        const logiMouseWireless = {
+            ...logiMouse,
+            wired : false
+        }
+
+        const copylogiMouse = {
+            ...logiMouse
+        }
+
+        console.log(logiMouse)
+
+        
+
 
 
 

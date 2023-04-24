@@ -23,7 +23,7 @@
         // section-1 데이터
         {
             height : 0,
-            hMultiple : 5,
+            hMultiple : 8,
             objs : {
                 container : document.querySelector("#section-1"),
                 canvas : document.querySelector("#section1-canvas"),
@@ -33,7 +33,7 @@
                 imageCount : 85,
                 canvasImages : [],
                 imageIndex : [0, 84],
-                canvas_fadein_opacity : [0, 1, {start: 0.03, end: 0.21}],
+                canvas_fadein_opacity : [0, 1, {start: 0.01, end: 0.11}],
                 canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.92}],
                 canvas_default_opacity : [1, 1]
             }
@@ -169,7 +169,7 @@
         for (let i = 0; i < imageCount; i++)
         {
             imgElement = new Image();
-            imgElement.src = `./image/earth2/earth${i}.png`
+            imgElement.src = `./image/section_1/earth${i}.jpg`
 
             canvasImages.push(imgElement);
         }
@@ -299,7 +299,6 @@
         {
             case 0:
 
-            $subtitle.style.opacity = 0;
 
             if ((scrollRate >= 0.6) && (scrollRate < 1))
             {
@@ -307,13 +306,10 @@
                 {
                     $subtitle = document.querySelector(".section0-subtitle")
                     $subtitle.setAttribute("id", `section0-subtitle`);
-                }
-                
-                else(f == false)
-                {
-                    $subtitle = document.querySelector(".section0-subtitle")
                     $subtitle.style.opacity = 1
                 }
+                
+
                 
                 f = false;
             }
@@ -322,7 +318,6 @@
 
             case 1:
             
-            $subtitle.style.opacity = 0;
 
             if ((scrollRate < 0.3))
             {
@@ -330,11 +325,6 @@
                 {
                     $subtitle = document.querySelector(".section0-subtitle")
                     $subtitle.setAttribute("id", `section0-subtitle`);
-                }
-
-                else(f == false)
-                {
-                    $subtitle = document.querySelector(".section0-subtitle")
                     $subtitle.style.opacity = 1
                 }
 
@@ -374,15 +364,14 @@
                 
                 objects.canvas.style.opacity = 0;
                
-                // 1. fade-in 처리
-                if ((scrollRate >= 0.03) && (scrollRate < 0.53))
+                // section1-earth(canvas) 애니메이션
+                if ((scrollRate >= 0.01) && (scrollRate < 0.11))
                 {
                     // fade-in 처리
                     canvasOpacity = calcValue(values.canvas_fadein_opacity);
                     objects.canvas.style.opacity = canvasOpacity;
                 }
-
-                else if ((scrollRate >= 0.53) && (scrollRate < 0.72))
+                else if ((scrollRate >= 0.11) && (scrollRate < 0.72))
                 {
                     canvasOpacity = calcValue(values.canvas_default_opacity);
                     objects.canvas.style.opacity = canvasOpacity;
@@ -393,6 +382,10 @@
                     canvasOpacity = calcValue(values.canvas_fadeout_opacity);
                     objects.canvas.style.opacity = canvasOpacity;
                 }
+
+                // section1-text 애니메이션
+                // if 
+
                 
             break;
             
@@ -431,7 +424,6 @@
         currentSection = getCurrentSection();
         sectionYOffset = yOffset - getPrevSectionHeight();
         console.log(`sectionYOffset = ${sectionYOffset}`)
-        console.log(`currentSection = ${currentSection}`)
         setBodyID(currentSection);
         setLocalnavMenu();
         playAnimation();
