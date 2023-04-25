@@ -231,6 +231,14 @@ a {
     font-size: 4.5rem;
 }
 
+.section1-message.b {
+    color: rgb(255, 131, 131);
+}
+
+.section1-undermessage {
+    display: flex;
+}
+
 /* sticky */
 
 .sticky-element {
