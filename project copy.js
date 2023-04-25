@@ -14,7 +14,7 @@
         // section-0 데이터
         {
             height : 0,
-            hMultiple : 1.5,
+            hMultiple : 1.1,
             objs : {
                 container : document.querySelector("#section-0")
             }
@@ -26,6 +26,9 @@
             hMultiple : 8,
             objs : {
                 container : document.querySelector("#section-1"),
+                
+                messageA : document.querySelector(".section1-message.a"),
+
                 canvas : document.querySelector("#section1-canvas"),
                 ctx : document.querySelector("#section1-canvas").getContext("2d")
             },
@@ -33,6 +36,12 @@
                 imageCount : 85,
                 canvasImages : [],
                 imageIndex : [0, 84],
+
+                messageA_fade_in : [0, 1, {start: 0.00, end:0.07}],
+                messageA_fade_out : [1, 0, {start: 0.12, end:0.19}],
+                messageA_transY_in : [0, 1, {start: 0.00, end:0.07}],
+                messageA_transY_out : [1, 0, {start: 0.12, end:0.19}],
+
                 canvas_fadein_opacity : [0, 1, {start: 0.01, end: 0.11}],
                 canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.92}],
                 canvas_default_opacity : [1, 1]
@@ -250,12 +259,12 @@
         {
             case 0:
 
-            if ((scrollRate < 0.6))
+            if ((scrollRate < 0.13))
             {
                 $subtitle = document.querySelector(".section0-subtitle")
                 $subtitle.style.opacity = 0;
             }
-            else if ((scrollRate >= 0.6) && (scrollRate < 1))
+            else if ((scrollRate >= 0.13) && (scrollRate < 1))
             {
                 $subtitle = document.querySelector(".section0-subtitle")
                 $subtitle.setAttribute("id", `section0-subtitle`);
@@ -267,20 +276,7 @@
 
             break;
 
-            case 1:
-
-            if ((scrollRate < 0.3))
-            {
-                $subtitle = document.querySelector(".section0-subtitle")
-                $subtitle.setAttribute("id", `section0-subtitle`);
-            }
-            else ((scrollRate >= 0.3) && (scrollRate < 1))
-            {
-                $subtitle = document.querySelector(".section0-subtitle")
-                $subtitle.style.opacity = 0;
-            }
-            
-            case 2: case 3:
+            case 1: case 2: case 3:
 
             $subtitle = document.querySelector(".section0-subtitle")
             $subtitle.style.opacity = 0;
@@ -299,7 +295,7 @@
         {
             case 0:
 
-            if ((scrollRate >= 0.6) && (scrollRate < 1))
+            if ((scrollRate >= 0.13) && (scrollRate < 1))
             {
                 if(f == true)
                 {
@@ -313,24 +309,7 @@
 
             break;
 
-            case 1:
-            
-
-            if ((scrollRate < 0.3))
-            {
-                if(f == true)
-                {
-                    $subtitle = document.querySelector(".section0-subtitle")
-                    $subtitle.setAttribute("id", `section0-subtitle`);
-                    $subtitle.style.opacity = 1
-                }
-
-                f = false;
-            }
-
-            break;
-
-            case 2: case 3:
+            case 1: case 2: case 3:
             break;
         }
 
@@ -360,6 +339,8 @@
                 objects.ctx.drawImage(values.canvasImages[imgIndex], 0, 0);
                 
                 objects.canvas.style.opacity = 0;
+
+                objects.messageA.style.opacity = 0;
                
                 // section1-earth(canvas) 애니메이션
                 if ((scrollRate >= 0.01) && (scrollRate < 0.11))
@@ -381,9 +362,30 @@
                 }
 
                 // section1-text 애니메이션
-                // if 
+                // if ((scrollRate >= 0.00) && (scrollRate < 0.07))
+                // {
+                //     // fade-in 처리
+                //     // [0, 1, {start: 0.03, end: 0.12}]
+                //     opacity = calcValue(values.messageA_fade_in);
+                //     objects.messageA.style.opacity = opacity;
 
-                
+                //     // translateY를 처리한다.
+                //     translateY = calcValue(values.messageA_transY_in);
+                //     objects.messageA.style.transform = `translateY(${translateY}%)`
+                // }
+                // else if ((scrollRate >= 0.12) && (scrollRate < 0.20))
+                // {
+                //     // fade-out 처리
+                //     // [1, 0, {start: 0.13, end: 0.23}
+
+                //     opacity = calcValue(values.messageA_fade_out);
+                //     objects.messageA.style.opacity = opacity;
+
+                //     // translateY를 처리한다.
+                //     translateY = calcValue(values.messageA_transY_out);
+                //     objects.messageA.style.transform = `translateY(${translateY}%)`
+                // }
+
             break;
             
             case 2:
@@ -425,6 +427,7 @@
         setLocalnavMenu();
         playAnimation();
         scrollSubAnimation();
+        console.log(sectionSet[1].height)
     })
 
     // 페이지 사이즈 변경될 때마다

@@ -14,7 +14,7 @@
         // section-0 데이터
         {
             height : 0,
-            hMultiple : 1.5,
+            hMultiple : 1.3,
             objs : {
                 container : document.querySelector("#section-0")
             }
@@ -299,6 +299,7 @@
         {
             case 0:
 
+
             if ((scrollRate >= 0.6) && (scrollRate < 1))
             {
                 if(f == true)
@@ -307,6 +308,8 @@
                     $subtitle.setAttribute("id", `section0-subtitle`);
                     $subtitle.style.opacity = 1
                 }
+                
+
                 
                 f = false;
             }
@@ -437,16 +440,6 @@
     //     playSubAnimation();
     // }, { once : true });
     
-    
-    
-
-
-
-
-
-
-
-
 
 
 })();
