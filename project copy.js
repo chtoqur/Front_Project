@@ -23,24 +23,54 @@
         // section-1 데이터
         {
             height : 0,
-            hMultiple : 8,
+            hMultiple : 6,
             objs : {
                 container : document.querySelector("#section-1"),
                 
                 messageA : document.querySelector(".section1-message.a"),
+                messageB : document.querySelector(".section1-message.b"),
+                messageC : document.querySelector(".section1-message.c"),
+                messageD : document.querySelector(".section1-message.d"),
+                messageE : document.querySelector(".section1-message.e"),
+                messageF : document.querySelector(".section1-message.f"),
 
-                canvas : document.querySelector("#section1-canvas"),
-                ctx : document.querySelector("#section1-canvas").getContext("2d")
+                canvas : document.querySelector("#main-canvas"),
+                ctx : document.querySelector("#main-canvas").getContext("2d")
             },
             vals : {
                 imageCount : 85,
                 canvasImages : [],
                 imageIndex : [0, 84],
 
-                messageA_fade_in : [0, 1, {start: 0.00, end:0.07}],
-                messageA_fade_out : [1, 0, {start: 0.12, end:0.19}],
-                messageA_transY_in : [0, 1, {start: 0.00, end:0.07}],
-                messageA_transY_out : [1, 0, {start: 0.12, end:0.19}],
+                messageA_fade_in : [0, 1, {start: 0.01, end:0.06}],
+                messageA_fade_out : [1, 0, {start: 0.065, end:0.115}],
+                messageA_transY_in : [40, 20, {start: 0.01, end:0.06}],
+                messageA_transY_out : [20, 0, {start: 0.065, end:0.115}],
+
+                messageB_fade_in : [0, 1, {start: 0.15, end:0.2}],
+                messageB_fade_out : [1, 0, {start: 0.205, end:0.255}],
+                messageB_transY_in : [40, 20, {start: 0.15, end:0.2}],
+                messageB_transY_out : [20, 0, {start: 0.205, end:0.255}],
+
+                messageC_fade_in : [0, 1, {start: 0.29, end:0.34}],
+                messageC_fade_out : [1, 0, {start: 0.345, end:0.395}],
+                messageC_transY_in : [40, 20, {start: 0.29, end:0.34}],
+                messageC_transY_out : [20, 0, {start: 0.345, end:0.395}],
+
+                messageD_fade_in : [0, 1, {start: 0.43, end:0.48}],
+                messageD_fade_out : [1, 0, {start: 0.485, end:0.535}],
+                messageD_transY_in : [40, 20, {start: 0.43, end:0.48}],
+                messageD_transY_out : [20, 0, {start: 0.485, end:0.535}],
+
+                messageE_fade_in : [0, 1, {start: 0.57, end:0.62}],
+                messageE_fade_out : [1, 0, {start: 0.625, end:0.675}],
+                messageE_transY_in : [40, 20, {start: 0.57, end:0.62}],
+                messageE_transY_out : [20, 0, {start: 0.625, end:0.675}],
+
+                messageF_fade_in : [0, 1, {start: 0.71, end:0.76}],
+                messageF_fade_out : [1, 0, {start: 0.765, end:0.9}],
+                messageF_transY_in : [40, 20, {start: 0.71, end:0.76}],
+                messageF_transY_out : [20, 0, {start: 0.765, end:0.9}],
 
                 canvas_fadein_opacity : [0, 1, {start: 0.01, end: 0.11}],
                 canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.92}],
@@ -341,6 +371,12 @@
                 objects.canvas.style.opacity = 0;
 
                 objects.messageA.style.opacity = 0;
+                objects.messageB.style.opacity = 0;
+                objects.messageC.style.opacity = 0;
+                objects.messageD.style.opacity = 0;
+                objects.messageE.style.opacity = 0;
+                objects.messageF.style.opacity = 0;
+
                
                 // section1-earth(canvas) 애니메이션
                 if ((scrollRate >= 0.01) && (scrollRate < 0.11))
@@ -362,29 +398,144 @@
                 }
 
                 // section1-text 애니메이션
-                // if ((scrollRate >= 0.00) && (scrollRate < 0.07))
-                // {
-                //     // fade-in 처리
-                //     // [0, 1, {start: 0.03, end: 0.12}]
-                //     opacity = calcValue(values.messageA_fade_in);
-                //     objects.messageA.style.opacity = opacity;
+                // a
+                if ((scrollRate >= 0.01) && (scrollRate < 0.06))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageA_fade_in);
+                    objects.messageA.style.opacity = opacity;
 
-                //     // translateY를 처리한다.
-                //     translateY = calcValue(values.messageA_transY_in);
-                //     objects.messageA.style.transform = `translateY(${translateY}%)`
-                // }
-                // else if ((scrollRate >= 0.12) && (scrollRate < 0.20))
-                // {
-                //     // fade-out 처리
-                //     // [1, 0, {start: 0.13, end: 0.23}
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageA_transY_in);
+                    objects.messageA.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.065) && (scrollRate < 0.115))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
 
-                //     opacity = calcValue(values.messageA_fade_out);
-                //     objects.messageA.style.opacity = opacity;
+                    opacity = calcValue(values.messageA_fade_out);
+                    objects.messageA.style.opacity = opacity;
 
-                //     // translateY를 처리한다.
-                //     translateY = calcValue(values.messageA_transY_out);
-                //     objects.messageA.style.transform = `translateY(${translateY}%)`
-                // }
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageA_transY_out);
+                    objects.messageA.style.transform = `translateY(${translateY}%)`
+                }
+                // b
+                else if ((scrollRate >= 0.15) && (scrollRate < 0.2))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageB_fade_in);
+                    objects.messageB.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageB_transY_in);
+                    objects.messageB.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.205) && (scrollRate < 0.255))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageB_fade_out);
+                    objects.messageB.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageB_transY_out);
+                    objects.messageB.style.transform = `translateY(${translateY}%)`
+                }
+                // c
+                else if ((scrollRate >= 0.29) && (scrollRate < 0.34))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageC_fade_in);
+                    objects.messageC.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageC_transY_in);
+                    objects.messageC.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.345) && (scrollRate < 0.395))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageC_fade_out);
+                    objects.messageC.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageC_transY_out);
+                    objects.messageC.style.transform = `translateY(${translateY}%)`
+                }
+                // d
+                else if ((scrollRate >= 0.43) && (scrollRate < 0.48))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageD_fade_in);
+                    objects.messageD.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageD_transY_in);
+                    objects.messageD.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.485) && (scrollRate < 0.535))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageD_fade_out);
+                    objects.messageD.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageD_transY_out);
+                    objects.messageD.style.transform = `translateY(${translateY}%)`
+                }
+                // e
+                else if ((scrollRate >= 0.57) && (scrollRate < 0.62))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageE_fade_in);
+                    objects.messageE.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageE_transY_in);
+                    objects.messageE.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.625) && (scrollRate < 0.675))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageE_fade_out);
+                    objects.messageE.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageE_transY_out);
+                    objects.messageE.style.transform = `translateY(${translateY}%)`
+                }
+                // f
+                else if ((scrollRate >= 0.71) && (scrollRate < 0.76))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageF_fade_in);
+                    objects.messageF.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageF_transY_in);
+                    objects.messageF.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.765) && (scrollRate < 0.9))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageF_fade_out);
+                    objects.messageF.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageF_transY_out);
+                    objects.messageF.style.transform = `translateY(${translateY}%)`
+                }
 
             break;
             
@@ -407,7 +558,6 @@
         setLayout();
         yOffset = window.scrollY;
         sectionYOffset = yOffset - getPrevSectionHeight();
-
         currentSection = getCurrentSection();
         setCanvas() 
         setBodyID(currentSection);
@@ -419,7 +569,6 @@
     // 스크롤 될 때마다
     window.addEventListener('scroll', ()=>{
         yOffset = window.scrollY
-
         currentSection = getCurrentSection();
         sectionYOffset = yOffset - getPrevSectionHeight();
         console.log(`sectionYOffset = ${sectionYOffset}`)
@@ -427,7 +576,7 @@
         setLocalnavMenu();
         playAnimation();
         scrollSubAnimation();
-        console.log(sectionSet[1].height)
+        // console.log(sectionSet[1].height)
     })
 
     // 페이지 사이즈 변경될 때마다
@@ -436,9 +585,6 @@
 
     })
 
-    // window.addEventListener('scroll', ()=>{
-    //     playSubAnimation();
-    // }, { once : true });
     
     
     

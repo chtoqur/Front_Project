@@ -217,27 +217,26 @@ a {
     top: 0;
 }
 
-#section1-canvas {
-    width: 100vw;
-    /* height: 100vh; */
-    overflow: hidden;
-}
 
 .scroll-section {
     border: 1px solid red;
 }
 
 .section1-message {
+    
     font-size: 4.5rem;
+    font-weight: bold;
+    color: rgb(134, 134, 134);
+
+    width: 100%;
+    height: 6em;
+    left: 0;
+    top: 5em;
+
+    text-align: center;
+
 }
 
-.section1-message.b {
-    color: rgb(255, 131, 131);
-}
-
-.section1-undermessage {
-    display: flex;
-}
 
 /* sticky */
 
