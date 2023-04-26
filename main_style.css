@@ -262,7 +262,6 @@ a {
 
 .section2-asia {
     position: relative;
-    transition: all .3s ease-out;
 }
 
 .section2-content {
@@ -275,7 +274,6 @@ a {
     font-weight: 900;
     z-index: -1;
 
-    transition: all .3s ease-out;
 }
 
 .section2-content.a {
@@ -288,6 +286,8 @@ a {
 .section2-content.b {
     color: #210b00;
     margin-left: 5%;
+    
+    transition: all .3s ease-out;
 }
 
 .section2-content.c {
@@ -297,6 +297,8 @@ a {
 
     left: 25%;
     margin-top: 20%;
+
+    transition: all .3s ease-out;
 }
 
 .section2-content.d {
@@ -305,6 +307,8 @@ a {
     color: #2d2d2d;
     margin-left: 17%;
     margin-top: 8%;
+
+    transition: all .3s ease-out;
 }
 
 
