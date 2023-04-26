@@ -68,9 +68,9 @@
                 messageE_transY_out : [20, 0, {start: 0.625, end:0.675}],
 
                 messageF_fade_in : [0, 1, {start: 0.71, end:0.76}],
-                messageF_fade_out : [1, 0, {start: 0.765, end:0.9}],
+                messageF_fade_out : [1, 0, {start: 0.765, end:0.85}],
                 messageF_transY_in : [40, 20, {start: 0.71, end:0.76}],
-                messageF_transY_out : [20, 0, {start: 0.765, end:0.9}],
+                messageF_transY_out : [20, 0, {start: 0.765, end:0.85}],
 
                 canvas_fadein_opacity : [0, 1, {start: 0.01, end: 0.11}],
                 canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.92}],
@@ -219,65 +219,7 @@
     }
 
     // 비율 계산
-    const calcValue = function(values)
-    {
-        let result = 0;
-        let ratio;
-
-        let partStart = 0;
-        let partEnd = 0;
-        let partHeight = 0;
-
-        const curHeight = sectionSet[currentSection].height;
-
-        if (values.length === 2)    
-        {
-            ratio = sectionYOffset / curHeight;
-            result = (values[1] - values[0]) * ratio + values[0];
-
-            return result;
-        }
-
-        else if (values.length === 3)
-        {
-            // 시작점
-            partStart = values[2].start * curHeight;
-            // 끝지점
-            partEnd = values[2].end * curHeight;
-            // 구간 길이
-            partHeight = partEnd - partStart;
-
-            // fade-in 구간 진입 전 고정값 지정
-            if (sectionYOffset < partStart)
-            {
-                // fade-in 구간 진입 전에는
-                // fade-in ready 값인 0.03의 값을 리턴
-                result = values[0];
-            }
-
-            // fade-in 구간 빠져나온 후 ~ fade-out 구간 전 고정값 지정
-            else if (sectionYOffset > partEnd)
-            {
-                // fade-in 구간 지나간 후에는
-                // fade-out 마지막 값인 0.12를 리턴
-                result = values[1];
-            }
-            // fade-in 구역 내부에서 opacity에 리턴될 값 계산
-            else
-            {
-                ratio = (sectionYOffset - partStart) / partHeight
-                result = (values[1] - values[0]) * ratio + values[0];
-            }
-
-            return result;
-        }
-        else
-        {
-            console.error("[ERROR] calcValue(), invalid parameter")
-        }
-
-    }
-
+    
     // load시 스크롤 위치 기반으로 subtitle 출력
     const loadSubAnimation = function()
     {
@@ -314,7 +256,7 @@
             break;
         }
     }
-
+    
     const scrollSubAnimation = function()
     {
         let scrollRate = sectionYOffset / sectionSet[currentSection].height
@@ -338,12 +280,71 @@
             }
 
             break;
-
+            
             case 1: case 2: case 3:
-            break;
+                break;
+            }
+            
         }
-
-    }
+        
+        const calcValue = function(values)
+        {
+            let result = 0;
+            let ratio;
+    
+            let partStart = 0;
+            let partEnd = 0;
+            let partHeight = 0;
+    
+            const curHeight = sectionSet[currentSection].height;
+    
+            if (values.length === 2)    
+            {
+                ratio = sectionYOffset / curHeight;
+                result = (values[1] - values[0]) * ratio + values[0];
+    
+                return result;
+            }
+    
+            else if (values.length === 3)
+            {
+                // 시작점
+                partStart = values[2].start * curHeight;
+                // 끝지점
+                partEnd = values[2].end * curHeight;
+                // 구간 길이
+                partHeight = partEnd - partStart;
+    
+                // fade-in 구간 진입 전 고정값 지정
+                if (sectionYOffset < partStart)
+                {
+                    // fade-in 구간 진입 전에는
+                    // fade-in ready 값인 0.03의 값을 리턴
+                    result = values[0];
+                }
+    
+                // fade-in 구간 빠져나온 후 ~ fade-out 구간 전 고정값 지정
+                else if (sectionYOffset > partEnd)
+                {
+                    // fade-in 구간 지나간 후에는
+                    // fade-out 마지막 값인 0.12를 리턴
+                    result = values[1];
+                }
+                // fade-in 구역 내부에서 opacity에 리턴될 값 계산
+                else
+                {
+                    ratio = (sectionYOffset - partStart) / partHeight
+                    result = (values[1] - values[0]) * ratio + values[0];
+                }
+    
+                return result;
+            }
+            else
+            {
+                console.error("[ERROR] calcValue(), invalid parameter")
+            }
+    
+        }
 
     // 애니메이션 함수
     const playAnimation = function()
