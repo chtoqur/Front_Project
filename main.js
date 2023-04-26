@@ -1,94 +1,142 @@
-// 즉시호출 함수로 생성
 (()=>{
 
-    // offset = 기준점으로부터 얼마나 떨어져있는가
-    // Scroll-Y 값
+    // scrollY 값 (전체 범위 대비)
     let yOffset = 0;
 
-    // 현재 섹션의 값
+    // section 내부에서의 scrollY값, section을 넘어가면 0으로 초기화
+    let sectionYOffset = 0;
+
+    // 현재 섹션
     let currentSection = 0;
 
-    // 섹션이 넘어가면 0~부터 다시 시작하는 값
-    // 섹션 내부값
-    let sectionYOffset = 0;
-    
-    // section-0과 1의 정보를 넣어서 배열로 생성
     const sectionSet = [
-        // section-0의 정보
+
+        // section-0 데이터
         {
             height : 0,
-            // 높이의 몇 배를 적용할건지
-            hMultiple : 5,
-            // 매번 쿼리셀렉터 호출이 번거롭기 때문에 objs 생성
-            // DOM 정보를 미리 다 가져오기
+            hMultiple : 1.1,
             objs : {
-                container : document.querySelector("#section-0"),
-                // section0-message와 a 두가지 클래스가 동시에 있어야 하는 경우
-                messageA : document.querySelector(".section0-message.a"),
-                messageB : document.querySelector(".section0-message.b"),
-                messageC : document.querySelector(".section0-message.c"),
-                messageD : document.querySelector(".section0-message.d")
-            },
-            // value 값 모아두기
-            vals : {
-                messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
-                messageA_fade_out : [1, 0, {start: 0.13, end: 0.23}],
+                container : document.querySelector("#section-0")
             }
         },
-        // section-1의 정보
+
+        // section-1 데이터
+        {
+            height : 0,
+            hMultiple : 6,
+            objs : {
+                container : document.querySelector("#section-1"),
+                
+                messageA : document.querySelector(".section1-message.a"),
+                messageB : document.querySelector(".section1-message.b"),
+                messageC : document.querySelector(".section1-message.c"),
+                messageD : document.querySelector(".section1-message.d"),
+                messageE : document.querySelector(".section1-message.e"),
+                messageF : document.querySelector(".section1-message.f"),
+
+                toy : document.querySelector(".section1-message.g"),
+
+                canvas : document.querySelector("#main-canvas"),
+                ctx : document.querySelector("#main-canvas").getContext("2d")
+            },
+            vals : {
+                imageCount : 85,
+                canvasImages : [],
+                imageIndex : [0, 84],
+
+                toy_fade_in : [1, 1, {start: 0.83, end: 0.89}],
+                toy_translateX : [0, 50, {start: 0.83, end: 0.98}],
+                toy_translateY : [0, 40, {start: 0.83, end: 0.98}],
+
+                messageA_fade_in : [0, 1, {start: 0.01, end:0.06}],
+                messageA_fade_out : [1, 0, {start: 0.065, end:0.115}],
+                messageA_transY_in : [50, 30, {start: 0.01, end:0.06}],
+                messageA_transY_out : [30, 10, {start: 0.065, end:0.115}],
+
+                messageB_fade_in : [0, 1, {start: 0.15, end:0.2}],
+                messageB_fade_out : [1, 0, {start: 0.205, end:0.255}],
+                messageB_transY_in : [50, 30, {start: 0.15, end:0.2}],
+                messageB_transY_out : [30, 10, {start: 0.205, end:0.255}],
+
+                messageC_fade_in : [0, 1, {start: 0.29, end:0.34}],
+                messageC_fade_out : [1, 0, {start: 0.345, end:0.395}],
+                messageC_transY_in : [50, 30, {start: 0.29, end:0.34}],
+                messageC_transY_out : [30, 10, {start: 0.345, end:0.395}],
+
+                messageD_fade_in : [0, 1, {start: 0.43, end:0.48}],
+                messageD_fade_out : [1, 0, {start: 0.485, end:0.535}],
+                messageD_transY_in : [50, 30, {start: 0.43, end:0.48}],
+                messageD_transY_out : [30, 10, {start: 0.485, end:0.535}],
+
+                messageE_fade_in : [0, 1, {start: 0.57, end:0.62}],
+                messageE_fade_out : [1, 0, {start: 0.625, end:0.675}],
+                messageE_transY_in : [50, 30, {start: 0.57, end:0.62}],
+                messageE_transY_out : [30, 10, {start: 0.625, end:0.675}],
+
+                messageF_fade_in : [0, 1, {start: 0.71, end:0.76}],
+                messageF_fade_out : [1, 0, {start: 0.765, end:0.815}],
+                messageF_transY_in : [50, 30, {start: 0.71, end:0.76}],
+                messageF_transY_out : [30, 10, {start: 0.765, end:0.815}],
+
+                canvas_fadein_opacity : [0, 1, {start: 0.01, end: 0.11}],
+                canvas_fadeout_opacity : [1, 0, {start: 0.72, end: 0.83}],
+                canvas_default_opacity : [1, 1]
+            }
+        },
+        
+        // section-2 데이터
         {
             height : 0,
             hMultiple : 3,
             objs : {
-                container : document.querySelector("#section-1")
+                container :document.querySelector("#section-2")
+            } 
+        },
+
+        // section-3 데이터
+        {
+            height : 0,
+            hMultiple : 3,
+            objs : {
+                container : document.querySelector("#section-3")
             }
         }
-    ];
+    ]
 
-    // 객체 vals의 fade-in, fade-out 값 넣어주면 css값 출력해주는 함수 생성
-
-    
-
+    // 레이아웃 설정 초기화 함수
     const setLayout = function()
-    {   
-        // 이미지를 보여주기 위해서 최소 높이를 설정해주기
-        // 최소 높이보다 작은경우는 강제로 높이를 설정한다
-
+    {
+        // 영상을 보여주기 위해서 최소 높이 설정
+        // 1280 x 720
+        
         let height = 0;
-
-        console.log("[CALL] setlayout()")
 
         if (window.innerHeight < 500)
         {
-            // 강제로 높이를 설정
             height = 500;
-
-        }
+        } 
         else
         {
-            // 최소 높이를 충족한다면 브라우저의 높이를 그대로 적용
             height = window.innerHeight;
         }
 
-        // 위에서 구한 높이값을 가지고 각 섹션의 설정값으로 넣어준다.
+        // 위에서 구한 높이값과 hMultiple 값을 곱해서 객체 내부에 삽입
         for (let i = 0; i < sectionSet.length; i++)
         {
             sectionSet[i].height = height * sectionSet[i].hMultiple;
             sectionSet[i].objs.container.style.height = `${sectionSet[i].height}px`
         }
-    
     }
 
-    const getCurrentSection = function()
+    // 스크롤 시 현재 섹션 리턴하는 함수
+    const getCurrentSection = function ()
     {
-        // 섹션의 높이 정보, 스크롤 값을 알고 있어야 함
-        
-        // segment = 부분부분, 덩어리
+
         let segment = [
-            // 배열로 만드는 이유
-            // 섹션이 2개가 아니라 3개 이상이 되면 섹션도 늘어남
             sectionSet[0].height,
-            sectionSet[0].height + sectionSet[1].height
+            sectionSet[0].height + sectionSet[1].height,
+            sectionSet[0].height + sectionSet[1].height + sectionSet[2].height,
+            sectionSet[0].height + sectionSet[1].height + sectionSet[2].height + sectionSet[3].height
         ];
 
         let section = 0;
@@ -101,31 +149,37 @@
         {
             section = 1;
         }
+        else if ((yOffset > segment[1]) && (yOffset <=segment[2]))
+        {
+            section = 2;
+
+        }
+        else if ((yOffset > segment[2]) && (yOffset <=segment[3]))
+        {
+            section = 3;
+
+        }
         else
         {
             // 도달하지 않는 공간
             console.error("[ERROR] getCurrentSection()")
         }
-        
-        // console.log("curSection = " + section)
+
         return section;
     }
 
-    // 스크롤 될 때마다 섹션 별로 display 상태 변환
+    // 스크롤 시 섹션 별로 display 상태 전환
     const setBodyID = function(section)
     {
         document.body.setAttribute("id", `show-section${section}`);
-        
     }
 
-    // 스크롤 시 local-nav 상단에 붙이기
+    // 스크롤시 네비게이션 상단에 붙이기
     const setLocalnavMenu = function()
     {
         if (yOffset > 44)
         {
-            // local-nav를 fixed 시키기
-
-            // 클래스는 여러개이기 때문에 classlist사용
+            // local 네비게이션 fixed
             document.body.classList.add('local-nav-sticky');
         }
         else
@@ -135,6 +189,7 @@
         }
     }
 
+    // 이전 섹션의 높이값 반환
     const getPrevSectionHeight = function()
     {
         let prevHeight = 0;
@@ -148,80 +203,225 @@
         return prevHeight
     }
 
+    // 이미지 회전을 위한 캔버스 생성
+    const setCanvas = function()
+    {
+        let imgElement;
+        const imageCount = sectionSet[1].vals.imageCount;
+        const canvasImages = sectionSet[1].vals.canvasImages;
+        const ctx = sectionSet[1].objs.ctx;
+
+        for (let i = 0; i < imageCount; i++)
+        {
+            imgElement = new Image();
+            imgElement.src = `./image/section_1/earth${i}.jpg`
+
+            canvasImages.push(imgElement);
+        }
+        
+        imgElement.addEventListener('load', ()=>{
+            ctx.drawImage(canvasImages[0], 0, 0);
+        })
+    }
+
+    // 비율 계산
     const calcValue = function(values)
     {
-        // 최종 리턴값
         let result = 0;
+        let ratio;
 
-        // [0, 1, {start: 0.03, end: 0.12}]
-        
         let partStart = 0;
         let partEnd = 0;
         let partHeight = 0;
 
-        // 현재 섹션의 높이
         const curHeight = sectionSet[currentSection].height;
-        
-        // fade-in 시작점
-        partStart = values[2].start * curHeight;
-        // fade-in 끝나는 지점
-        partEnd = values[2].end * curHeight;
-        // fade-in 구간 길이
-        partHeight = partEnd - partStart;
 
-        // fade-in 구간 진입 전 고정값 지정
-        if (sectionYOffset < partStart)
+        if (values.length === 2)    
         {
-            // fade-in 구간 진입 전에는
-            // fade-in ready 값인 0.03의 값을 리턴
-            result = values[0];
+            ratio = sectionYOffset / curHeight;
+            result = (values[1] - values[0]) * ratio + values[0];
+
+            return result;
         }
-        // fade-in 구간 빠져나온 후 ~ fade-out 구간 전 고정값 지정
-        else if (sectionYOffset > partEnd)
+
+        else if (values.length === 3)
         {
-            // fade-in 구간 지나간 후에는
-            // fade-out 마지막 값인 0.12를 리턴
-            result = values[1];
+            // 시작점
+            partStart = values[2].start * curHeight;
+            // 끝지점
+            partEnd = values[2].end * curHeight;
+            // 구간 길이
+            partHeight = partEnd - partStart;
+
+            // fade-in 구간 진입 전 고정값 지정
+            if (sectionYOffset < partStart)
+            {
+                // fade-in 구간 진입 전에는
+                // fade-in ready 값인 0.03의 값을 리턴
+                result = values[0];
+            }
+
+            // fade-in 구간 빠져나온 후 ~ fade-out 구간 전 고정값 지정
+            else if (sectionYOffset > partEnd)
+            {
+                // fade-in 구간 지나간 후에는
+                // fade-out 마지막 값인 0.12를 리턴
+                result = values[1];
+            }
+            // fade-in 구역 내부에서 opacity에 리턴될 값 계산
+            else
+            {
+                ratio = (sectionYOffset - partStart) / partHeight
+                result = (values[1] - values[0]) * ratio + values[0];
+            }
+
+            return result;
         }
-        // fade-in 구역 내부에서 opacity에 리턴될 값 계산
         else
         {
-            ratio = (sectionYOffset - partStart) / partHeight
-            result = (values[1] - values[0]) * ratio + values[0];
+            console.error("[ERROR] calcValue(), invalid parameter")
         }
-
-        return result;
 
     }
 
-    const playAnimation = function()
+    // load시 스크롤 위치 기반으로 subtitle 출력
+    const loadSubAnimation = function()
     {
         let opacity = 0;
-
-        // 0부터 1사이의 값
-        // if문의 조건 변수
+        let translateY = 0;
         let scrollRate = sectionYOffset / sectionSet[currentSection].height
 
-        let values = sectionSet[currentSection].vals;
-        // messageA_fade_in : [0, 1, {start: 0.03, end: 0.12}],
-        let objects = sectionSet[currentSection].objs;
-        // messageA : document.querySelector(".section0-message.a"),
-        
         switch(currentSection)
-        {   
+        {
             case 0:
 
-                // 'a'구간
+            if ((scrollRate < 0.13))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.style.opacity = 0;
+            }
+            else if ((scrollRate >= 0.13) && (scrollRate < 1))
+            {
+                $subtitle = document.querySelector(".section0-subtitle")
+                $subtitle.setAttribute("id", `section0-subtitle`);
+            }
+            else
+            {
+                console.error("[ERROR] playSubAnimation()")
+            }
 
-                // 1. fade-in 처리
-                if (scrollRate < 0.13)
+            break;
+
+            case 1: case 2: case 3:
+
+            $subtitle = document.querySelector(".section0-subtitle")
+            $subtitle.style.opacity = 0;
+
+            break;
+        }
+    }
+
+    const scrollSubAnimation = function()
+    {
+        let scrollRate = sectionYOffset / sectionSet[currentSection].height
+        
+        let f = true;
+
+        switch(currentSection)
+        {
+            case 0:
+
+            if ((scrollRate >= 0.13) && (scrollRate < 1))
+            {
+                if(f == true)
+                {
+                    $subtitle = document.querySelector(".section0-subtitle")
+                    $subtitle.setAttribute("id", `section0-subtitle`);
+                    $subtitle.style.opacity = 1
+                }
+                
+                f = false;
+            }
+
+            break;
+
+            case 1: case 2: case 3:
+            break;
+        }
+
+    }
+
+    // 애니메이션 함수
+    const playAnimation = function()
+    {
+
+        let translateX3d = 0;
+        let translateY3d = 0;
+
+        let opacity = 0;
+        let translateY = 0;
+        let scrollRate = sectionYOffset / sectionSet[currentSection].height
+        let values = sectionSet[currentSection].vals;
+        let objects = sectionSet[currentSection].objs;
+        let temp = 0;
+        let imgIndex = 0;
+
+        switch(currentSection)
+        {
+            case 0:
+                
+            break;
+            
+            case 1:
+
+                temp = calcValue(values.imageIndex);
+                imgIndex = Math.floor(temp);
+                objects.ctx.drawImage(values.canvasImages[imgIndex], 0, 0);
+                
+                objects.canvas.style.opacity = 0;
+
+                objects.messageA.style.opacity = 0;
+                objects.messageB.style.opacity = 0;
+                objects.messageC.style.opacity = 0;
+                objects.messageD.style.opacity = 0;
+                objects.messageE.style.opacity = 0;
+                objects.messageF.style.opacity = 0;
+
+                objects.toy.style.opacity = 0;
+
+               
+                // section1-earth(canvas) 애니메이션
+                if ((scrollRate >= 0.01) && (scrollRate < 0.11))
                 {
                     // fade-in 처리
-                    // [0, 1, {start: 0.03, end: 0.12}]
+                    canvasOpacity = calcValue(values.canvas_fadein_opacity);
+                    objects.canvas.style.opacity = canvasOpacity;
+                }
+                else if ((scrollRate >= 0.11) && (scrollRate < 0.72))
+                {
+                    canvasOpacity = calcValue(values.canvas_default_opacity);
+                    objects.canvas.style.opacity = canvasOpacity;
+                }
+
+                else if ((scrollRate >= 0.72) && (scrollRate < 1))
+                {
+                    canvasOpacity = calcValue(values.canvas_fadeout_opacity);
+                    objects.canvas.style.opacity = canvasOpacity;
+                }
+
+                // section1-text 애니메이션
+                // a
+                if ((scrollRate < 0.065))
+                {
+                    // fade-in 처리
                     opacity = calcValue(values.messageA_fade_in);
                     objects.messageA.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageA_transY_in);
+                    objects.messageA.style.transform = `translateY(${translateY}%)`
                 }
-                else if ((scrollRate >= 0.13) && (scrollRate < 0.25))
+                else if ((scrollRate >= 0.065) && (scrollRate < 0.133))
                 {
                     // fade-out 처리
                     // [1, 0, {start: 0.13, end: 0.23}
@@ -229,67 +429,185 @@
                     opacity = calcValue(values.messageA_fade_out);
                     objects.messageA.style.opacity = opacity;
 
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageA_transY_out);
+                    objects.messageA.style.transform = `translateY(${translateY}%)`
                 }
+                // b
+                else if ((scrollRate >= 0.133) && (scrollRate < 0.205))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageB_fade_in);
+                    objects.messageB.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageB_transY_in);
+                    objects.messageB.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.205) && (scrollRate < 0.273))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageB_fade_out);
+                    objects.messageB.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageB_transY_out);
+                    objects.messageB.style.transform = `translateY(${translateY}%)`
+                }
+                // c
+                else if ((scrollRate >= 0.273) && (scrollRate < 0.345))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageC_fade_in);
+                    objects.messageC.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageC_transY_in);
+                    objects.messageC.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.345) && (scrollRate < 0.413))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageC_fade_out);
+                    objects.messageC.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageC_transY_out);
+                    objects.messageC.style.transform = `translateY(${translateY}%)`
+                }
+                // d
+                else if ((scrollRate >= 0.413) && (scrollRate < 0.485))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageD_fade_in);
+                    objects.messageD.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageD_transY_in);
+                    objects.messageD.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.485) && (scrollRate < 0.553))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageD_fade_out);
+                    objects.messageD.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageD_transY_out);
+                    objects.messageD.style.transform = `translateY(${translateY}%)`
+                }
+                // e
+                else if ((scrollRate >= 0.553) && (scrollRate < 0.625))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageE_fade_in);
+                    objects.messageE.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageE_transY_in);
+                    objects.messageE.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.625) && (scrollRate < 0.693))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageE_fade_out);
+                    objects.messageE.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageE_transY_out);
+                    objects.messageE.style.transform = `translateY(${translateY}%)`
+                }
+                // f
+                else if ((scrollRate >= 0.693) && (scrollRate < 0.765))
+                {
+                    // fade-in 처리
+                    opacity = calcValue(values.messageF_fade_in);
+                    objects.messageF.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageF_transY_in);
+                    objects.messageF.style.transform = `translateY(${translateY}%)`
+                }
+                else if ((scrollRate >= 0.765) && (scrollRate < 0.833))
+                {
+                    // fade-out 처리
+                    // [1, 0, {start: 0.13, end: 0.23}
+
+                    opacity = calcValue(values.messageF_fade_out);
+                    objects.messageF.style.opacity = opacity;
+
+                    // translateY를 처리한다.
+                    translateY = calcValue(values.messageF_transY_out);
+                    objects.messageF.style.transform = `translateY(${translateY}%)`
+                }
+
+                // toy
+                if ((scrollRate >= 0.83) && (scrollRate < 0.99))
+                {
+                    // 텍스트 등장
+                    // opacity = calcValue(values.toy_fade_in);
+                    objects.toy.style.opacity = 1;
+
+                    // translate를 처리한다.
+                    translateX3d = calcValue(values.toy_translateX);
+                    translateY3d = calcValue(values.toy_translateY);
+                    objects.toy.style.transform = `translate3d(${translateX3d}vw, -${translateY3d}vw, 0px)`
+                }
+
+            break;
+            
+            case 2:
             break;
 
-            case 1:
-                console.log("1번 섹션 애니메이션 실행 중")
+            case 3:
             break;
-
+            
             default:
-                console.error("playAnimation()");
             break;
+
         }
     }
 
-    ////////////////////////////////// 이벤트 리스너 //////////////////////////////////
-    // DOM에서 받는게 아니기 때문에 window로 접근
+    ////////////// 이벤트 리스너 //////////////
 
-    // 스크롤이 일어날 때 이벤트 = 'scroll'
-    window.addEventListener('scroll', ()=>{
-
-        // 1. 스크롤 값을 다시 설정한다.
-        yOffset = window.scrollY
-
-        // 2. 현재 섹션값을 가지고 온다.
-        currentSection = getCurrentSection();
-
-        // sectionYOffset을 구한다.
-        // yOffset값에서 이전 섹션의 높이를 뺀다(getPrevSectionHeight 함수 생성)
-        sectionYOffset = yOffset - getPrevSectionHeight();
-
-        // CSS 변경
-        setBodyID(currentSection);
-        setLocalnavMenu();
-
-        playAnimation();
-
-    })
-
-    // setLayout 함수가 호출되는 시기
-    // 1. 처음 로딩될 때
+    // 처음 로딩 시
     window.addEventListener('load', ()=>{
-        // load = 필요한 리소스가 모두 로딩되었을 때 그 이후 발생!
-
-        // 1. 레이아웃을 다시 잡는다.
         setLayout();
-
-        // 2. 스크롤 값을 다시 설정한다.
         yOffset = window.scrollY;
-
-        // 3. 현재 섹션값을 가지고 온다.
+        sectionYOffset = yOffset - getPrevSectionHeight();
         currentSection = getCurrentSection();
+        setCanvas() 
         setBodyID(currentSection);
         setLocalnavMenu();
-        
+        loadSubAnimation();
+    })
+    
+
+    // 스크롤 될 때마다
+    window.addEventListener('scroll', ()=>{
+        yOffset = window.scrollY
+        currentSection = getCurrentSection();
+        sectionYOffset = yOffset - getPrevSectionHeight();
+        console.log(`sectionYOffset = ${sectionYOffset}`)
+        setBodyID(currentSection);
+        setLocalnavMenu();
+        playAnimation();
+        scrollSubAnimation();
+        console.log(sectionSet[currentSection].height)
     })
 
-    // 2. 페이지의 사이즈가 변경될 때마다 (유동적으로)
+    // 페이지 사이즈 변경될 때마다
     window.addEventListener('resize', ()=>{
-        // resize = 페이지가 리사이즈 될 때마다 발생!
-
-        // 1. 레이아웃을 다시 잡는다.
         setLayout();
 
     })
+
 })();
