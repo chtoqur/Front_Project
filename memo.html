@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,121 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-
-        const Menus = {
-            후라이드치킨 : 12000,
-            양념치킨 : 14000,
-            갈비양념치킨 : 20000
-        };
-        
-        class SalesManager {
-
-            #brandName;
-            // # = 외부에서 접근할 수 없는 프라이빗 어트리뷰트
-            // 외부 접근은 막고, 내부의 메소드들은 접근가능
-
-            constructor(menu, brandName)
-            {
-                this.menu = menu;
-                this.#brandName = brandName;
-                this.SalesData = [];
-            }
-
-            addSale(date, menu, count)
-            {
-                // Inner Class
-                class Sale {
-
-                    date;
-                    #menu;
-                    count;
-                    amount;
-
-                    constructor(date, menu, count)
-                    {
-                        this.date = date;
-                        this.#menu = menu;
-                        this.count = count;
-                        this.amount = Menus[menu] * count;
-                    }
-
-                };
-                
-                // Sale 객체 생성
-                const SaleObj = new Sale(date, menu, count);
-                this.SalesData.push(SaleObj)
-
-            }
-
-            getAmount(date)
-            {
-                let total = 0;
-                for (const sale of this.SalesData)
-                {
-                    if (sale.date === date)
-                    {
-                        total = total + sale.amount;
-                    }
-                }
-                return total;
-            }
-
-            // 날짜 넣으면 몇건인지 출력하는 함수
-            getSalesCount(date)
-            {
-                let SalesCount = 0;
-                
-                for(const sale of this.SalesData)
-                {
-                    if(sale.date === date)
-                    {
-                        SalesCount++;
-                    }
-                }
-                return SalesCount;
-            }
-
-            // 연도 넣으면 몇건인지 출력하는 함수
-
-            get bbbbb()
-            {
-                return this.#brandName;
-            }
-
-            // 정상적인 방법(어플리케이션에서 허가하는 방법)으로
-            // 변수값을 "설정"(쓴다)하는 함수를 Setter(세터)라고 칭함
-            set brandName(brand)
-            {
-                this.#brandName = brand;
-            }
-        };
-
-        const ezenChicken = new SalesManager(Menus, "이젠양념통닭");
-
-        ezenChicken.addSale("20230425", "후라이드치킨", 2);
-        ezenChicken.addSale("20230425", "양념치킨", 1);
-
-        // ezenChicken.brandName = "우린망했어요"
-        // console.log(ezenChicken.brandName);
-
-        // console.log(ezenChicken.getBrandName());
-
-        ezenChicken.brandName = "EZEN 치킨";
-        console.log(ezenChicken.bbbbb)
-
-        // 1. brandName을 외부에서 접근하지 못하게 만들기
-        // #brandName;
-        // 2. brandName을 접근하는 정상적인 방법을 제공하기
-
-
-        // 문제점
-        // 외부에서 이렇게 만들어버릴수도 있음
-        // new Sale("20230425", 3, "양념치킨", 1)
-
-        // 해결법
-        // Sale 클래스를 활용하는 것은 addSale뿐이므로 내부로 이동시킨다
-
-    </script>
+    
 </body>
 </html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <table border="1" id="salesTable">
+        <tr>
+            <th>날짜</th>
+            <th>품목</th>
+            <th>수량</th>
+            <th>단가</th>
+            <th>판매금액</th>
+        </tr>
+    </table>
+
+    <button>매출조회</button>
+
+    <script>
+
+        class SalesManager {
+
+            #brandName;
+            #menu;
+            #SalesData;
+
+            constructor(brandName)
+            {
+                this.#brandName = brandName;
+                this.#menu = {};
+                this.#SalesData = [];
+            }
+
+            // 나중에 클래스가 확장되면 추가 코딩하는 공간
+            initManager()
+            {
+                return true;
+            }
+            
+            setMenu(name, price)
+            {
+                this.#menu[name] = price;
+            }
+
+            getMenu()
+            {
+                // 데이터를 새로 만들어서 복사해줌
+                return { ...this.#menu };
+            }
+
+            addSale(date, menu, count)
+            {
+                // Inner Class
+                class Sale {
+
+                    date;
+                    menu;
+                    count;
+                    amount;
+                    total;
+
+                    constructor(date, menu, price, count)
+                    {
+                        this.date = date;
+                        this.menu = menu;
+                        this.count = count;
+                        this.price = price;
+                        this.amount = price * count; // 수정
+                        this.total = "";
+                    }
+                };
+                
+                // Sale 객체 생성
+                const SaleObj = new Sale(date, menu, this.#menu[menu], count);
+                this.#SalesData.push(SaleObj);
+            }
+            
+            getSalebyIndex(index)
+            {
+                if ((index < 0) || (index >= this.#SalesData.length))
+                {
+                    console.error("getSalebyIndex(), out of index")
+                    return {};
+                }
+
+                return {
+                    date : this.#SalesData[index].date,
+                    menu : this.#SalesData[index].menu,
+                    count : this.#SalesData[index].count,
+                    price : this.#SalesData[index].price,
+                    amount : this.#SalesData[index].amount
+                };
+            }
+
+            getAmountAll()
+            {
+                let total = 0;
+                for (const sale of this.#SalesData)
+                {
+                    total = total + sale.amount;
+                }
+
+                return total;
+            }
+
+            getAmount(date)
+            {
+                let total = 0;
+                for (const sale of this.#SalesData)
+                {
+                    if (sale.date === date)
+                    {
+                        total = total + sale.amount;
+                    }
+                }
+                return total;
+            }
+
+            // 날짜 넣으면 몇건인지 출력하는 함수
+            getSalesCount(date)
+            {
+                let SalesCount = 0;
+
+                // getSalesCount() > 파라메터 없이 호출된경우
+                // date가 없다면 전체 매출 건수 리턴
+                if (date === undefined)
+                {
+                    return this.#SalesData.length;
+                }
+                
+                for(const sale of this.#SalesData)
+                {
+                    if(sale.date === date)
+                    {
+                        SalesCount++;
+                    }
+                }
+                return SalesCount;
+            }
+
+            setBrandName(brand)
+            {
+                this.#brandName = brand;
+            }
+
+            getBrandName()
+            {
+                return this.#brandName;
+            }
+
+        };
+        
+        const ezenChicken = new SalesManager("이젠양념통닭");
+        ezenChicken.initManager();
+        
+        // 1. 메뉴 설정
+        ezenChicken.setMenu("후라이드치킨", 12000);
+        ezenChicken.setMenu("양념치킨", 15000);
+        ezenChicken.setMenu("반반치킨", 18000);
+        
+        // 2. 데이터 삽입
+        ezenChicken.addSale("20230405", "후라이드치킨", 1)
+        ezenChicken.addSale("20230405", "양념치킨", 2)
+        ezenChicken.addSale("20230405", "반반치킨", 3)
+        ezenChicken.addSale("20230406", "후라이드치킨", 2)
+        ezenChicken.addSale("20230406", "양념치킨", 1)
+
+        console.log(ezenChicken.getSalebyIndex(2))
+        
+        // 3. 버튼 엘리먼트 가져오기
+        const $btnInquiry = document.querySelector("button")
+        const $tblSale = document.querySelector('#salesTable')
+
+        const makeSaleTable = function()
+        {
+            let count = ezenChicken.getSalesCount();
+            let $trElem = undefined;
+            let $tdDate = undefined;
+            let menu = ezenChicken.getMenu();
+            let $tdCount = undefined;
+            let $tdPrice = undefined;
+            let $tdAmount = undefined;
+            let sale;
+
+            let $tdTotalAmount = undefined;
+            let $tdTotalAmountTitle = undefined;
+
+            for (let i = 0; i < count; i++)
+            {
+                sale = ezenChicken.getSalebyIndex(i);
+
+                // 1. tr태그 엘리먼트를 만든다.
+                $trElem = document.createElement('tr');
+                
+                // 2. td 엘리먼트 생성
+                $tdDate = document.createElement('td');
+                $tdDate.textContent = sale.date;
+                
+                $tdMenu = document.createElement('td');
+                $tdMenu.textContent = sale.menu;
+
+                $tdCount = document.createElement('td');
+                $tdCount.textContent = sale.count;
+
+                $tdPrice = document.createElement('td');
+                $tdPrice.textContent = menu[sale.menu];
+
+                $tdAmount = document.createElement('td');
+                $tdAmount.textContent = sale.amount;
+
+                // 3. td를 tr에 붙인다.
+                $trElem.appendChild($tdDate);
+                $trElem.appendChild($tdMenu);
+                $trElem.appendChild($tdCount);
+                $trElem.appendChild($tdPrice);
+                $trElem.appendChild($tdAmount);
+
+                // 4. tr을 table에 붙인다.
+                $tblSale.appendChild($trElem);
+            }
+
+            $trElem = document.createElement('tr');
+            $tdTotalAmountTitle = document.createElement('td');
+            $tdTotalAmountTitle.setAttribute('colspan', 4);
+            $tdTotalAmountTitle.textContent = '총매출액';
+
+            $tdTotalAmount = document.createElement('td');
+            $tdTotalAmount.textContent = String(ezenChicken.getAmountAll());
+
+            $trElem.appendChild($tdTotalAmountTitle);
+            $trElem.appendChild($tdTotalAmount);
+
+            $tblSale.appendChild($trElem);
+
+        }
+
+        $btnInquiry.addEventListener('click', ()=>{
+            // 테이블 만들기
+            makeSaleTable();
+        })
+        
+        console.log(ezenChicken.getSalesCount())
+
+    </script>
+</body>
+</html>
