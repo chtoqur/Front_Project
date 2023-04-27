@@ -35,6 +35,21 @@ a {
     color:gray
 }
 
+footer {
+    display: flex;
+    /* 중앙 정렬 */
+    justify-content: center;
+    /* 세로 중앙 정렬 */
+    align-items: center;
+    
+    height: 5em;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: rgb(194, 221, 228);
+    color: black;
+}
+
 /* /////////////// 클래스 /////////////// */
 
 .global-nav {
@@ -236,24 +251,22 @@ a {
 }
 
 .section1-message.g {
-    font-size: 300px;
+    font-size: 250px;
     font-weight: bold;
     
     color: transparent;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: rgb(0, 52, 32);
+    -webkit-text-stroke-color: rgb(252, 71, 0);
 
     width: 100%;
     height: 100%;
-    top: 1.6em;
-    left: -2em;
+    top: 60%;
+    left: -60%;
 
     z-index: 1;
     text-align: left;
 
     transition: all .3s ease-out;
-    /* transition-duration: 1s;
-    transition-timing-function: ease; */
 }
 
 /* section-1 end */
@@ -267,7 +280,7 @@ a {
 
 .section2-container {
     position: absolute;
-    max-width: 1200px;
+    max-width: 1700px;
     width: 100%;
     height: 25%;
 
@@ -275,13 +288,6 @@ a {
     top: 10%;
     transform: translate(-50%, -50%);
 }
-
-
-
-
-/* .section2-box {
-
-} */
 
 .section2-asia {
     position: absolute;
@@ -295,7 +301,7 @@ a {
 .section2-asia.a {
     position: absolute;
     top: 20%;
-    left: 35%;
+    left: 36%;
     
     transform: translate(-50%, -50%);
 }
@@ -310,40 +316,31 @@ a {
     font-size: 90px;
     font-weight: 900;
 
-    color: #210b00;
-    /* margin-left: 5%; */
-    /* transition: all .3s ease-out; */
+    color: #002c14;
 }
 
 .section2-asia.c {
     position: absolute;
-    top: 36%;
-    left: 5%;
+    top: 39%;
+    left: 18%;
     
     font-size: 90px;
     font-weight: 900;
 
     color: transparent;
     -webkit-text-stroke-width: 2.5px;
-    -webkit-text-stroke-color: rgb(149, 112, 85);
+    -webkit-text-stroke-color: rgb(0, 78, 30);
 
-    /* left: 25%;
-    margin-top: 20%; */
-    /* transition: all .3s ease-out; */
 }
 
 .section2-asia.d {
     position: absolute;
-    left: 71%;
-    top: 16%;
+    left: 67%;
+    top: 25%;
 
     font-size: 22px;
     font-weight: 500;
     color: #2d2d2d;
-    /* margin-left: 17%;
-    margin-top: 8%; */
-
-    /* transition: all .3s ease-out; */
 }
 
 .section2-container2 {
@@ -357,10 +354,31 @@ a {
     transform: translate(-50%, -50%);
 }
 
+.section2-cryosphere-text {
+    position: absolute;
+
+    font-size: 250px;
+    font-weight: bold;
+    
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(255, 208, 0);
+
+    width: 100%;
+    height: 100%;
+    top: -25%;
+    left: 50%;
+
+    z-index: 1;
+    text-align: right;
+
+    transition: all .3s ease-out;
+}
+
 .section2-cryosphere.a {
     position: absolute;
     top: 20%;
-    left: 55%;
+    left: 58%;
     
     transform: translate(-50%, -50%);
 }
@@ -368,7 +386,7 @@ a {
 .section2-cryosphere.b {
     position: absolute;
     top: 3%;
-    left: 37.5%;
+    left: 41%;
 
     transform: translate(-50%, -50%);
     
@@ -376,14 +394,12 @@ a {
     font-weight: 900;
 
     color: #060031;
-    /* margin-left: 5%; */
-    /* transition: all .3s ease-out; */
 }
 
 .section2-cryosphere.c {
     position: absolute;
     top: 25%;
-    left: 67%;
+    left: 70%;
     
     font-size: 90px;
     font-weight: 900;
@@ -391,30 +407,22 @@ a {
     color: transparent;
     -webkit-text-stroke-width: 2.5px;
     -webkit-text-stroke-color: rgb(146, 147, 185);
-
-    /* left: 25%;
-    margin-top: 20%; */
-    /* transition: all .3s ease-out; */
 }
 
 .section2-cryosphere.d {
     position: absolute;
-    left: 15%;
+    left: 6%;
     top: 16%;
 
     font-size: 22px;
     font-weight: 500;
     color: #2d2d2d;
     text-align: right;
-    /* margin-left: 17%;
-    margin-top: 8%; */
-
-    /* transition: all .3s ease-out; */
 }
 
 .section2-container3 {
     position: absolute;
-    max-width: 1200px;
+    max-width: 1700px;
     width: 100%;
     height: 25%;
 
@@ -424,17 +432,19 @@ a {
 }
 
 .section2-coral-text {
-    font-size: 300px;
+    position: absolute;
+
+    font-size: 250px;
     font-weight: bold;
     
     color: transparent;
     -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: rgb(0, 52, 32);
+    -webkit-text-stroke-color: rgb(168, 139, 189);
 
     width: 100%;
     height: 100%;
-    top: 1.6em;
-    left: -2em;
+    top: -25%;
+    left: -50%;
 
     z-index: 1;
     text-align: left;
@@ -445,7 +455,7 @@ a {
 .section2-coral.a {
     position: absolute;
     top: 20%;
-    left: 35%;
+    left: 36%;
     
     transform: translate(-50%, -50%);
 }
@@ -453,47 +463,76 @@ a {
 .section2-coral.b {
     position: absolute;
     top: 3%;
-    left: 56%;
+    left: 64%;
 
     transform: translate(-50%, -50%);
     
     font-size: 90px;
     font-weight: 900;
 
-    color: #210b00;
-    /* margin-left: 5%; */
-    /* transition: all .3s ease-out; */
+    color: #a19286;
 }
 
 .section2-coral.c {
     position: absolute;
-    top: 36%;
-    left: 5%;
+    top: 25%;
+    left: 10.5%;
     
     font-size: 90px;
     font-weight: 900;
+    text-align: right;
 
     color: transparent;
     -webkit-text-stroke-width: 2.5px;
     -webkit-text-stroke-color: rgb(149, 112, 85);
 
-    /* left: 25%;
-    margin-top: 20%; */
-    /* transition: all .3s ease-out; */
 }
 
 .section2-coral.d {
     position: absolute;
-    left: 71%;
-    top: 16%;
+    left: 51%;
+    top: 15%;
 
     font-size: 22px;
     font-weight: 500;
     color: #2d2d2d;
-    /* margin-left: 17%;
-    margin-top: 8%; */
+}
 
-    /* transition: all .3s ease-out; */
+.section2-video {
+    position: absolute;
+    top: 75%;
+    left: 0;
+
+    width: 100%;
+    height: 20%;
+}
+
+.section2-subtext {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+
+    color: white;
+}
+
+.section2-subtext.a {
+    font-size: 9rem;
+    font-weight: 900;
+    text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669;
+
+    top: 22%;
+}
+
+.section2-subtext.b {
+    font-size: 2rem;
+    font-weight: 600;
+    text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669;
+
+
+    top: 50%;
 }
 
 /* sticky */
@@ -507,9 +546,9 @@ a {
     display: block;
 }
 
-#show-section2 .sticky-element {
+/* #show-section2 .sticky-element {
     display: block;
-}
+} */
 
 .local-nav-sticky > .local-nav {
     position : fixed;
@@ -552,3 +591,8 @@ a {
     }
 }
 
+/* #section2-container2 {
+
+    animation: content-transform 3s;
+
+} */

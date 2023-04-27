@@ -34,7 +34,7 @@
                 messageE : document.querySelector(".section1-message.e"),
                 messageF : document.querySelector(".section1-message.f"),
 
-                toy : document.querySelector(".section1-message.g"),
+                sec2_messageA : document.querySelector(".section1-message.g"),
 
                 canvas : document.querySelector("#main-canvas"),
                 ctx : document.querySelector("#main-canvas").getContext("2d")
@@ -44,9 +44,9 @@
                 canvasImages : [],
                 imageIndex : [0, 84],
 
-                toy_fade_in : [1, 1, {start: 0.81, end: 0.95}],
-                toy_translateX : [0, 50, {start: 0.81, end: 0.95}],
-                toy_translateY : [0, 40, {start: 0.81, end: 0.95}],
+                sec2_messageA_scope : [1, 1, {start: 0.81, end: 0.95}],
+                sec2_messageA_translateX : [0, 70, {start: 0.81, end: 0.95}],
+                sec2_messageA_translateY : [0, 45, {start: 0.81, end: 0.95}],
 
                 messageA_fade_in : [0, 1, {start: 0.01, end:0.06}],
                 messageA_fade_out : [1, 0, {start: 0.065, end:0.115}],
@@ -89,8 +89,19 @@
             height : 0,
             hMultiple : 5,
             objs : {
-                container :document.querySelector("#section-2")
-            } 
+                container :document.querySelector("#section-2"),
+                sec2_messageB : document.querySelector(".section2-cryosphere-text"),
+                sec2_messageC : document.querySelector(".section2-coral-text")
+            },
+            vals : {
+                sec2_messageB_scope : [1, 1, {start: 0.04, end: 0.20}],
+                sec2_messageB_translateX : [0, 30, {start: 0.04, end: 0.20}],
+                sec2_messageB_translateY : [0, 10, {start: 0.04, end: 0.20}],
+
+                sec2_messageC_scope : [1, 1, {start: 0.30, end: 0.51}],
+                sec2_messageC_translateX : [0, 50, {start: 0.30, end: 0.51}],
+                sec2_messageC_translateY : [0, 12, {start: 0.30, end: 0.51}],
+            }
         },
 
         // section-3 데이터
@@ -310,12 +321,51 @@
                 console.error("[ERROR] playSubAnimation()")
             }
 
+            // $sec2container2 = document.querySelector(".section2-container")
+            // $sec2container2.style.opacity = 0;
+
             break;
 
-            case 1: case 2: case 3:
+            case 1: 
 
             $subtitle = document.querySelector(".section0-subtitle")
             $subtitle.style.opacity = 0;
+
+            // $sec2container2 = document.querySelector(".section2-container2")
+            // $sec2container2.style.opacity = 0;
+
+            break;
+
+            case 2:
+
+            $subtitle = document.querySelector(".section0-subtitle")
+            $subtitle.style.opacity = 0;
+
+            // $sec2container2 = document.querySelector(".section2-container2")
+            
+            // if ((scrollRate < 0.09))
+            // {
+            //     $sec2container2.style.opacity = 0;
+            // }
+            // else if ((scrollRate >= 0.09) && (scrollRate < 0.32))
+            // {
+            //     $sec2container2.setAttribute("id", `section2-container2`);
+            // }
+            // else ((scrollRate >= 0.32))
+            // {
+            //     $sec2container2.style.opacity = 0;
+            // }
+
+            break;
+
+            case 3:
+
+            $subtitle = document.querySelector(".section0-subtitle")
+            $subtitle.style.opacity = 0;
+
+            // $sec2container2 = document.querySelector(".section2-container2")
+            // $sec2container2.style.opacity = 0;
+
 
             break;
         }
@@ -326,6 +376,7 @@
         let scrollRate = sectionYOffset / sectionSet[currentSection].height
         
         let f = true;
+        // let f2 = true;
 
         switch(currentSection)
         {
@@ -335,9 +386,9 @@
             {
                 if(f == true)
                 {
-                    $subtitle = document.querySelector(".section0-subtitle")
-                    $subtitle.setAttribute("id", `section0-subtitle`);
-                    $subtitle.style.opacity = 1
+                    $sec2container2 = document.querySelector(".section2-container2")
+                    $sec2container2.setAttribute("id", `section2-container2`);
+                    $sec2container2.style.opacity = 1
                 }
                 
                 f = false;
@@ -345,8 +396,28 @@
 
             break;
 
-            case 1: case 2: case 3:
+            case 1: 
             break;
+
+            case 2: 
+
+            // if ((scrollRate >= 0.09) && (scrollRate < 0.32))
+            // {
+            //     if(f2 == true)
+            //     {
+            //         $subtitle = document.querySelector(".section2-container2")
+            //         $subtitle.setAttribute("id", `section2-container2`);
+            //         $subtitle.style.opacity = 1
+            //     }
+                
+            //     f2 = false;
+            // }
+
+            break;
+            
+            case 3:
+            break;
+
         }
 
     }
@@ -387,7 +458,7 @@
                 objects.messageE.style.opacity = 0;
                 objects.messageF.style.opacity = 0;
 
-                objects.toy.style.opacity = 0;
+                objects.sec2_messageA.style.opacity = 0;
 
                
                 // section1-earth(canvas) 애니메이션
@@ -549,23 +620,56 @@
                     objects.messageF.style.transform = `translateY(${translateY}%)`
                 }
 
-                // toy
+                // sec2_messageA
                 if ((scrollRate >= 0.81) && (scrollRate < 0.95))
                 {
                     // 텍스트 등장
-                    // opacity = calcValue(values.toy_fade_in);
-                    objects.toy.style.opacity = 1;
+                    opacity = calcValue(values.sec2_messageA_scope);
+                    objects.sec2_messageA.style.opacity = opacity;
 
                     // translate를 처리한다.
-                    translateX3d = calcValue(values.toy_translateX);
-                    translateY3d = calcValue(values.toy_translateY);
-                    objects.toy.style.transform = `translate3d(${translateX3d}vw, -${translateY3d}vw, 0px)`
+                    translateX3d = calcValue(values.sec2_messageA_translateX);
+                    translateY3d = calcValue(values.sec2_messageA_translateY);
+                    objects.sec2_messageA.style.transform = `translate3d(${translateX3d}vw, -${translateY3d}vw, 0px)`
+                }
+                else
+                {
+                    objects.sec2_messageA.style.opacity = 0;
                 }
 
             break;
             
             case 2:
-                objects.canvas.style.opacity = 0;
+
+                objects.sec2_messageB.style.opacity = 0;
+                objects.sec2_messageC.style.opacity = 0;
+
+                if ((scrollRate >= 0.04) && (scrollRate < 0.20))
+                    {
+                        // 텍스트 등장
+                        opacity = calcValue(values.sec2_messageB_scope);
+                        objects.sec2_messageB.style.opacity = opacity;
+
+                        // translate를 처리한다.
+                        translateX3d = calcValue(values.sec2_messageB_translateX);
+                        translateY3d = calcValue(values.sec2_messageB_translateY);
+                        objects.sec2_messageB.style.transform = `translate3d(-${translateX3d}vw, -${translateY3d}vw, 0px)`
+                    }
+
+                if ((scrollRate >= 0.30) && (scrollRate < 0.51))
+                {
+                    // 텍스트 등장
+                    opacity = calcValue(values.sec2_messageC_scope);
+                    objects.sec2_messageC.style.opacity = opacity;
+
+                    // translate를 처리한다.
+                    translateX3d = calcValue(values.sec2_messageC_translateX);
+                    translateY3d = calcValue(values.sec2_messageC_translateY);
+                    objects.sec2_messageC.style.transform = `translate3d(${translateX3d}vw, -${translateY3d}vw, 0px)`
+                }
+
+            
+
             break;
 
             case 3:
@@ -603,6 +707,7 @@
         playAnimation();
         scrollSubAnimation();
         console.log(sectionSet[currentSection].height)
+        console.log(`currentSection = ${currentSection}`)
     })
 
     // 페이지 사이즈 변경될 때마다
