@@ -44,9 +44,9 @@
                 canvasImages : [],
                 imageIndex : [0, 84],
 
-                toy_fade_in : [1, 1, {start: 0.83, end: 0.89}],
-                toy_translateX : [0, 50, {start: 0.83, end: 0.98}],
-                toy_translateY : [0, 40, {start: 0.83, end: 0.98}],
+                toy_fade_in : [1, 1, {start: 0.81, end: 0.95}],
+                toy_translateX : [0, 50, {start: 0.81, end: 0.95}],
+                toy_translateY : [0, 40, {start: 0.81, end: 0.95}],
 
                 messageA_fade_in : [0, 1, {start: 0.01, end:0.06}],
                 messageA_fade_out : [1, 0, {start: 0.065, end:0.115}],
@@ -87,7 +87,7 @@
         // section-2 데이터
         {
             height : 0,
-            hMultiple : 3,
+            hMultiple : 5,
             objs : {
                 container :document.querySelector("#section-2")
             } 
@@ -550,7 +550,7 @@
                 }
 
                 // toy
-                if ((scrollRate >= 0.83) && (scrollRate < 0.99))
+                if ((scrollRate >= 0.81) && (scrollRate < 0.95))
                 {
                     // 텍스트 등장
                     // opacity = calcValue(values.toy_fade_in);
@@ -565,6 +565,7 @@
             break;
             
             case 2:
+                objects.canvas.style.opacity = 0;
             break;
 
             case 3:
