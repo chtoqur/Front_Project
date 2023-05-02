@@ -107,7 +107,7 @@
         // section-3 데이터
         {
             height : 0,
-            hMultiple : 3,
+            hMultiple : 1,
             objs : {
                 container : document.querySelector("#section-3")
             }
@@ -374,9 +374,7 @@
     const scrollSubAnimation = function()
     {
         let scrollRate = sectionYOffset / sectionSet[currentSection].height
-        
         let f = true;
-        // let f2 = true;
 
         switch(currentSection)
         {
@@ -386,9 +384,9 @@
             {
                 if(f == true)
                 {
-                    $sec2container2 = document.querySelector(".section2-container2")
-                    $sec2container2.setAttribute("id", `section2-container2`);
-                    $sec2container2.style.opacity = 1
+                    
+                    $subtitle.setAttribute("id", `section0-subtitle`);
+                    $subtitle.style.opacity = 1
                 }
                 
                 f = false;
@@ -400,19 +398,6 @@
             break;
 
             case 2: 
-
-            // if ((scrollRate >= 0.09) && (scrollRate < 0.32))
-            // {
-            //     if(f2 == true)
-            //     {
-            //         $subtitle = document.querySelector(".section2-container2")
-            //         $subtitle.setAttribute("id", `section2-container2`);
-            //         $subtitle.style.opacity = 1
-            //     }
-                
-            //     f2 = false;
-            // }
-
             break;
             
             case 3:
@@ -715,5 +700,13 @@
         setLayout();
 
     })
+
+    // const $btn = document.querySelector("button")
+    
+    // $btn.addEventListener('click', ()=>{
+    //     let location = document.querySelector("#sub-video").offsetTop;
+    //     window.scrollTo({top: location - 100, behavior: 'smooth'})
+    //     // window.scrollTo({top: location, behavior: 'smooth'})
+    // })
 
 })();

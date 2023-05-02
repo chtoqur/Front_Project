@@ -35,6 +35,11 @@ a {
     color:gray
 }
 
+button {
+    border: none;
+    background-color: transparent;
+}
+
 footer {
     display: flex;
     /* 중앙 정렬 */
@@ -46,8 +51,8 @@ footer {
     width: 100%;
     font-size: 2rem;
     font-weight: bold;
-    background-color: rgb(194, 221, 228);
-    color: black;
+    background-color: rgb(82, 82, 82);
+    color: rgb(255, 255, 255);
 }
 
 /* /////////////// 클래스 /////////////// */
@@ -233,7 +238,7 @@ footer {
 }
 
 .scroll-section {
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .section1-message {
@@ -498,16 +503,33 @@ footer {
     color: #2d2d2d;
 }
 
-.section2-video {
+.section2-solution {
     position: absolute;
+    font-size: 5rem;
+    font-weight: 800;
+
     top: 75%;
+    width: 100%;
+    text-align: center;
+
+}
+
+
+
+#section-3 {
+    position: relative;
+}
+
+.section3-video {
+    position: absolute;
+    top: 0;
     left: 0;
 
     width: 100%;
-    height: 20%;
+    height: 100%;
 }
 
-.section2-subtext {
+.section3-subtext {
     position: absolute;
     top: 0;
     left: 0;
@@ -518,21 +540,42 @@ footer {
     color: white;
 }
 
-.section2-subtext.a {
-    font-size: 9rem;
+.section3-subtext.a {
+    font-size: 7.5rem;
     font-weight: 900;
-    text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669;
+    /* text-shadow: 0 8px 9px #d19669, 0px -2px 1px #ffdec5; */
 
-    top: 22%;
+    top: 30%;
 }
 
-.section2-subtext.b {
+.section3-subtext.b {
+    font-size: 3rem;
+    font-weight: 800;
+    /* text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669; */
+
+
+    top: 45%;
+}
+
+.section3-subtext.c {
     font-size: 2rem;
     font-weight: 600;
-    text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669;
+    /* text-shadow: 0 8px 9px #d19669, 0px -2px 1px #d19669; */
 
 
-    top: 50%;
+    top: 60%;
+}
+
+.button {
+    position: absolute;
+    top: 90%;
+    height: 120px;
+    width: 120px;
+    left: 45%;
+
+    border: none;
+    background-color: white;
+    z-index: 1;
 }
 
 /* sticky */
